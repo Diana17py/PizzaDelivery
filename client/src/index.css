@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+@media screen and (max-width: 768px) {
+  .pizza-item {
+    width: calc(50% - 20px); 
+  }
+}
+
+/* Адаптивні стилі для екранів менших за 480px */
+@media screen and (max-width: 480px) {
+  .pizza-item {
+    width: 100%; 
+  }
+}

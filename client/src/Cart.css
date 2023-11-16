@@ -1,0 +1,173 @@
+/* Стилі для сторінки кошика */
+
+.cart-container {
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cart-title {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.cart-items {
+  list-style: none;
+  padding: 0;
+}
+
+.cart-items .empty-cart-message {
+  font-size: 1.2rem;
+  color: #888;
+}
+
+.cart-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+}
+
+.cart-total {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.clear-cart-button,
+.order-button {
+  background-color: #e01c1c;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+.clear-cart-button:hover,
+.order-button:hover {
+  background-color: #e01c1c;
+}
+
+
+.product-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd; 
+}
+
+.product-image {
+  max-width: 100px; 
+  height: auto;
+}
+
+.product-text {
+  font-family: Arial, sans-serif; 
+  font-size: 1.2rem; 
+}
+
+.product-buttons button {
+  background-color: #e01c1c;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 0 5px;
+}
+
+.product-buttons button:hover {
+  background-color: #e01c1c;
+}
+.order-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; 
+}
+
+
+.order-form-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  z-index: 1001;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #000000;
+}
+
+.order-form h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.order-form form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.order-form form input[type="text"],
+.order-form form input[type="tel"],
+.order-form form select {
+  width: 95%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+.order-form form select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6' viewBox='0 0 12 6'%3E%3Cpath d='M6 6L0 0h12z'/%3E%3C/svg%3E"),
+    linear-gradient(to bottom, #ffffff 50%, #e5e5e5 50%);
+  background-repeat: no-repeat, repeat;
+  background-position: right 10px top 50%, 0 0;
+  background-size: 12px auto, 100%;
+}
+
+.order-form form button {
+  background-color: #e01c1c;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.order-form form button:hover {
+  background-color: #e01c1c;
+}

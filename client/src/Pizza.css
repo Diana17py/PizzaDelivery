@@ -1,0 +1,222 @@
+/* Pizza.css */
+
+.pizza-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.pizza-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  width: calc(20% - 20px); /* 5 items per row */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}
+
+.pizza-image {
+  max-height: 150px;
+  object-fit: cover;
+  cursor: pointer;
+}
+.pizza-card h3 {
+  margin: 10px 0;
+  font-size: 1.2rem;
+}
+
+.pizza-card p {
+  margin: 5px 0;
+}
+
+.pizza-card button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pizza-card button:hover {
+  background-color: #d32f2f;
+}
+
+.pizza-details-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
+.pizza-details-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  max-width: 80%;
+  overflow-y: auto;
+  max-height: 90%;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.pizza-details-card h3 {
+  margin: 10px 0;
+  font-size: 1.5rem;
+}
+
+.pizza-details-card img {
+  height: 100%;
+  object-fit: contain; /* Змінив object-fit на 'contain' */
+}
+
+.pizza-details-card p {
+  margin: 5px 0;
+}
+
+.quantity-container {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.quantity-container span {
+  margin-right: 10px;
+}
+
+.quantity-container input {
+  width: 50px;
+  text-align: center;
+}
+
+.quantity-container button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.quantity-container button:hover {
+  background-color: #45a049;
+}
+.pizza-text {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  text-align: left; /* Вирівнювання по правому боці */
+}
+
+.pizza-text p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+.additional-text {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #333;
+}
+.place-pizza-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Змініть це значення на те, яке підходить вам */
+}
+
+.place-pizza-logo-link {
+  text-decoration: none;
+}
+
+.place-pizza-logo-text {
+  font-size: 1.5rem;
+  color: #000000;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.place-pizza-logo-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto; /* Заставте елемент внизу */
+  margin-bottom: 20px; /* Додайте знизу відступ */
+}
+@media screen and (max-width: 768px) {
+  .pizza-item {
+    width: calc(50% - 20px); /* Дві піци в рядок на менших екранах */
+  }
+}
+
+/* Адаптивні стилі для екранів менших за 480px */
+@media screen and (max-width: 480px) {
+  .pizza-item {
+    width: 100%; 
+  }
+}
+.snack-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.snack-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  width: calc(20% - 20px); /* 5 items per row */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}
+
+.snack-image {
+  max-height: 150px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.snack-card h3 {
+  margin: 10px 0;
+  font-size: 1.2rem;
+}
+
+.snack-card p {
+  margin: 5px 0;
+}
+
+.snack-card button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.snack-card button:hover {
+  background-color: #d32f2f;
+}
