@@ -18,8 +18,8 @@ export default function Login() {
     e.preventDefault();
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        'http://localhost:3001/api/users/login',
+      const { data } =  await axios.post(
+        'http://127.0.0.1:3001/api/users/login',
         { ...values },
         { withCredentials: true }
       );
@@ -30,12 +30,7 @@ export default function Login() {
           if (email) generateError(email);
           else if (password) generateError(password);
         } else {
-          /*res.cookie("jwt", token, {
-            withCredentials: true,
-            httpOnly: false,
-            maxAge: maxAge * 1000,
-          });*/
-          navigate('/profile');
+          navigate('/dashboard');
         }
       }
     } catch (err) {
@@ -73,10 +68,10 @@ export default function Login() {
           />
         </div>
         <button type="submit" disabled={loading}>
-          {loading ? 'Logging in...' : 'Submit'}
+          {loading ? 'Logging in...' : 'Login'}
         </button>
         <span>
-          Already have an account? <Link to="/register">Register</Link>
+          No account? <Link to="/register">Register</Link>
         </span>
       </form>
       <ToastContainer />

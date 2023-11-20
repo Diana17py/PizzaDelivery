@@ -5,6 +5,7 @@ const auth = require("../middlewares/auth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 
+
 const createToken = (id) => {
   return jwt.sign({ id }, "diana kravets super secret key", {
     expiresIn: "5m",
@@ -64,6 +65,16 @@ router.delete('/logout',auth.checkJWT, async (req, res) => {
     res.status(200).json({});
   } catch (err) {
     res.json({ errors: err.message });
+  }
+});
+
+router.get('/profile', auth.checkJWT, async (req, res) => {
+  try {
+    const profile = await User.findByPk(req.decodedUserId, {attributes: ["id", "email", "first_name", "last_name"]});
+    res.json({profile: profile});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Помилка отримання даних' });
   }
 });
 

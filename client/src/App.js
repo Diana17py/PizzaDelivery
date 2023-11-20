@@ -18,10 +18,18 @@ import CertificateWindow from './CertificateWindow';
 import axios from 'axios';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Secret from './pages/Secret';
+import Dashboard from './pages/Dashboard';
 import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from './providers/Auth';
+
+const useProfile = () => {
+  return React.useContext(AuthContext);
+};
 
 const App = () => {
+  const { profile } = useProfile();
+  const {id: userId, first_name: userName} = profile;
+  const userIsLogged = parseInt(userId) > 0;
   const [infoOpen, setInfoOpen] = useState(false);
   const [addressOpen, setAddressOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -144,9 +152,12 @@ const App = () => {
             <Link to="/cart" /*onClick={handleCartClick}*/ className="link-style">
               <FontAwesomeIcon icon={faShoppingCart} /> Cart
               </Link>
-            <Link to="/register" className="link-style">
-              <FontAwesomeIcon icon={faUser} /> Register
-            </Link>  
+            {userIsLogged && <Link to="/dashboard" className="link-style">
+              <FontAwesomeIcon icon={faUser} />Hello, {userName}
+            </Link> }
+            {!userIsLogged && <Link to="/login" className="link-style">
+              <FontAwesomeIcon icon={faUser} /> Login
+            </Link>}  
             {infoOpen && <InfoWindow isOpen={infoOpen} onClose={handleInfoClose} />}
             {addressOpen && <AddressWindow isOpen={addressOpen} onClose={handleAddressClose} />}
             {cartOpen && <Cart  onClose={() => setCartOpen(false)} />}
@@ -178,7 +189,7 @@ const App = () => {
             <Route path="/:pizzaId" element={<PizzaDetails onPizzaClick={handlePizzaClick}  />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/secret" element={<Secret />} />
+            <Route path="/dashboard" element={<Dashboard profile={profile} />} />
         </Routes>
         </main>
         {categoryItemOpen && (

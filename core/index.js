@@ -1,11 +1,15 @@
 const express = require('express');
-const cors = require('cors');
 const app = express();
+const cors = require('cors');
 const cookieParser = require("cookie-parser");
 const storeRoutes = require("./routes/store");
 const usersRoutes = require("./routes/users");
 
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  methods: ["GET", "POST", "DELETE", "PUT"],
+  origin: ["http://localhost:3000", "http://127.0.0.1:3000"]
+}));
 app.use(express.json());
 app.use(cookieParser());
 
