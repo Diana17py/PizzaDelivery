@@ -32,7 +32,12 @@ router.post('/login', async (req, res) => {
       httpOnly: false,
       maxAge: 300*1000,
     });
-      res.status(200).json({ user: user.id, token: token });
+      res.status(200).json({ user: {
+        id: user.id,
+        email: user.email,
+        first_name: user.first_name,
+        last_name: user.last_name
+      } });
   } catch (err) {
     res.json({ errors: err.message });
   }
@@ -41,9 +46,14 @@ router.post('/login', async (req, res) => {
 router.post('/registration', async (req, res) => {
   try {
     const { email, password, first_name, last_name } = req.body;
-    const user = await User.create({ email, password, first_name, last_name });
+    const userCount = await User.count({where: {email: email}});
+    if (userCount > 0){
+      res.status(500).json({ errors: {email:"User is already exists",password: false}, created: false });
+    }else{
+      const user = await User.create({ email, password, first_name, last_name });
+      res.status(201).json({ user: user.id, created: true });
+    }
     
-    res.status(201).json({ user: user.id, created: true });
   } catch (err) {
     res.json({ errors: err.message });
   }
@@ -52,7 +62,7 @@ router.post('/registration', async (req, res) => {
 router.get('/orders',auth.checkJWT, async (req, res) => {
   try {
     const orders = Order.findAll({where: {user_id: req.decodedUserId}})
-    res.json({orders});
+    res.json({orders: orders});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Помилка отримання даних' });

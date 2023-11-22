@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
       });
   }, []);
   return (
-    <AuthContext.Provider value={{profile}}>
+    <AuthContext.Provider value={{profile, setProfile}}>
       {children}
     </AuthContext.Provider>
   );

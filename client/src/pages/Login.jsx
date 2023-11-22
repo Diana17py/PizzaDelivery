@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './login.css';
+import { AuthContext } from '../providers/Auth';
+
+const useProfile = () => {
+  return React.useContext(AuthContext);
+};
 
 export default function Login() {
+  const {setProfile} = useProfile();
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: '',
@@ -30,6 +37,7 @@ export default function Login() {
           if (email) generateError(email);
           else if (password) generateError(password);
         } else {
+          setProfile(data.user)
           navigate('/dashboard');
         }
       }
@@ -71,10 +79,9 @@ export default function Login() {
           {loading ? 'Logging in...' : 'Login'}
         </button>
         <span>
-          No account? <Link to="/register">Register</Link>
+          No account? <Link to="/registration">Register</Link>
         </span>
       </form>
-      <ToastContainer />
     </div>
   );
 }

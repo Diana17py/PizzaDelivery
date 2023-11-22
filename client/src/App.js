@@ -21,6 +21,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from './providers/Auth';
+import { ToastContainer } from 'react-toastify';
 
 const useProfile = () => {
   return React.useContext(AuthContext);
@@ -187,7 +188,7 @@ const App = () => {
             <Route path="/cart" element={<Cart  onClose={() => setCartOpen(false)} />} />
             <Route path="/pizza" element={<Pizza pizzas={pizzas} onPizzaClick={handlePizzaClick} /*onAddToCart={handleAddToCart}*/ />} />
             <Route path="/:pizzaId" element={<PizzaDetails onPizzaClick={handlePizzaClick}  />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/registration" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard profile={profile} />} />
         </Routes>
@@ -227,6 +228,7 @@ const App = () => {
           </div>
           
         </footer>
+        <ToastContainer />
       </div>
     </Router>
   );

@@ -1,41 +1,53 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+const handleErrors = (error) => {
+  console.error(error);
+  toast.error('An error occurred. Please try again.', { position: 'bottom-right' });
+};
 
 export default function Register() {
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: '',
     password: '',
+    first_name: '',
+    last_name: ''
   });
   const [loading, setLoading] = useState(false);
-
-  const generateError = (err) => toast.error(err, { position: 'bottom-right' });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        'http://localhost:3000/register',
+      let data = {};
+      await axios.post(
+        'http://127.0.0.1:3001/api/users/registration',
         { ...values },
         { withCredentials: true }
-      );
-
+      ).then(function (response) {
+        data = response.data
+      }).catch(function (error) {
+        data = error.response.data
+      });
       if (data.errors) {
         const { email, password } = data.errors;
-        if (email) generateError(email);
-        else if (password) generateError(password);
+        if (email) {
+          toast.error(`Error: ${email}`, { position: 'bottom-right' });
+        } else if (password) {
+          toast.error(`Error: ${password}`, { position: 'bottom-right' });
+        }else{
+          handleErrors(data.errors);
+        }
       } else {
-        // If registration is successful, you might want to redirect the user to the login page
-        // or handle it based on your application flow.
         navigate('/login');
+        toast.success('User was successfuly registred. Try to login.', { position: 'bottom-right' });
       }
     } catch (err) {
-      console.error(err);
-      generateError('An error occurred. Please try again.');
+      handleErrors(err);
     } finally {
       setLoading(false);
     }
@@ -67,6 +79,28 @@ export default function Register() {
             onChange={(e) => setValues({ ...values, password: e.target.value })}
           />
         </div>
+        <div>
+          <label htmlFor="first_name">First name</label>
+          <input
+            type="text"
+            id="first_name" 
+            name="first_name"
+            placeholder="First name"
+            value={values.first_name}
+            onChange={(e) => setValues({ ...values, first_name: e.target.value })}
+          />
+        </div>
+        <div>
+          <label htmlFor="last_name">Last name</label>
+          <input
+            type="text"
+            id="last_name" 
+            name="last_name"
+            placeholder="Last name"
+            value={values.last_name}
+            onChange={(e) => setValues({ ...values, last_name: e.target.value })}
+          />
+        </div>
         <button type="submit" disabled={loading}>
           {loading ? 'Registering...' : 'Submit'}
         </button>
@@ -74,7 +108,6 @@ export default function Register() {
           Already have an account? <Link to="/login">Login</Link>
         </span>
       </form>
-      <ToastContainer />
     </div>
   );
 }
