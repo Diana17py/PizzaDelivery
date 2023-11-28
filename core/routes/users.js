@@ -89,16 +89,6 @@ router.get('/orders',auth.checkJWT, async (req, res) => {
         }
       }]
     })
-    /*let cart_ids = [], courier_ids = [], user_address_ids = [];
-    /*orders.map((order) => {
-      cart_ids.push(order.cart_id);
-      courier_ids.push(order.courier_id);
-      user_address_ids.push(order.user_address_id);
-    });
-    /*const cart_items = await Cart.findAll({where: {cart_id: cart_ids}})
-    const couriers = await User.findAll({where: {user_id: courier_ids}})
-    const user_addresses = await UserAddress.findAll({where: {user_id: user_address_ids}})
-    const user = await User.findOne({ where: { id: req.decodedUserId } });*/
     res.json({orders: orders});
   } catch (error) {
     console.error(error);
