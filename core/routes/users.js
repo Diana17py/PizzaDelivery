@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { User, Order, UserAddress, Cart, CartItem, Product } = require('../models'); 
+const { User, Order, UserAddress, Cart, CartItem, Product, Invoice } = require('../models'); 
 const auth = require("../middlewares/auth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
@@ -87,6 +87,18 @@ router.get('/orders',auth.checkJWT, async (req, res) => {
             attributes: ['name']
           }
         }
+      },
+      {
+        model: Invoice,
+        as: 'invoice',
+        attributes: ['status', 'created_at'],
+        required: false
+      },
+      {
+        model: User,
+        as: 'courier',
+        attributes: ['first_name', 'last_name', 'phone_number'],
+        required: false
       }]
     })
     res.json({orders: orders});
