@@ -31,7 +31,7 @@
 }
 
 .snake-card button {
-  background-color: #f44336;
+  background-color: #ff6060;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -40,5 +40,5 @@
 }
 
 .snake-card button:hover {
-  background-color: #d32f2f;
+  background-color: #ff6060;
 }

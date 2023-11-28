@@ -93,7 +93,7 @@
 
 
 .additional-ingredients-container button {
-  background-color: #f44336;
+  background-color: #ff6060;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -103,7 +103,7 @@
 }
 
 .additional-ingredients-container button:hover {
-  background-color: #d32f2f;
+  background-color: #ff6060;
 }
 
 /* Add a style for total price */

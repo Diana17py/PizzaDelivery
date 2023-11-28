@@ -1,0 +1,34 @@
+/* OrderHistory.css */
+.order-history-container {
+  margin-top: 20px;
+}
+
+.order-history-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.order-list {
+  list-style: none;
+  padding: 0;
+}
+
+.order-item {
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.order-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-id {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.order-info {
+  font-size: 14px;
+}

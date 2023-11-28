@@ -22,6 +22,8 @@ import Dashboard from './pages/Dashboard';
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from './providers/Auth';
 import { ToastContainer } from 'react-toastify';
+import LogoutButton from './pages/LogoutButton';
+//import UserDashboard from './layouts/UserDashboardLayout';
 
 const useProfile = () => {
   return React.useContext(AuthContext);
@@ -40,6 +42,7 @@ const App = () => {
   const [certificateOpen, setCertificateOpen] = useState(false);
   const [pizzas, setPizzas] = useState([]);
   const [categoryItemOpen, setCategoryItemOpen] = useState(false);
+
 
   const handlePizzaClick = (pizza) => {
     setSelectedPizza(pizza);
@@ -82,6 +85,8 @@ const App = () => {
     setAddressOpen(false);
   };
 
+ 
+
   useEffect(() => {
     const cartId = sessionStorage.getItem('cartId');
     if (!cartId) {
@@ -104,6 +109,7 @@ const App = () => {
         console.error('Error fetching pizzas:', error);
       });
   }, []);
+  
 
   const pages = [
     { name: 'Pizza', url: '/pizza', image: '/img/pizzaa.jpg' },
@@ -121,7 +127,6 @@ const App = () => {
 
   const row1Pizzas = allFrequentlyOrderedCategories.slice(0, 4);
   const row2Pizzas = allFrequentlyOrderedCategories.slice(4, 8);
-
   
   return (
     <Router>
@@ -152,10 +157,12 @@ const App = () => {
             </span>
             <Link to="/cart" /*onClick={handleCartClick}*/ className="link-style">
               <FontAwesomeIcon icon={faShoppingCart} /> Cart
-              </Link>
-            {userIsLogged && <Link to="/dashboard" className="link-style">
+            </Link>
+            {userIsLogged && <><Link to="/dashboard" className="link-style">
               <FontAwesomeIcon icon={faUser} />Hello, {userName}
-            </Link> }
+            </Link> 
+            <LogoutButton/> </>}
+
             {!userIsLogged && <Link to="/login" className="link-style">
               <FontAwesomeIcon icon={faUser} /> Login
             </Link>}  
@@ -164,6 +171,7 @@ const App = () => {
             {cartOpen && <Cart  onClose={() => setCartOpen(false)} />}
           </div>
         </header>
+
         {menuOpen && (
           <div className="categoryes">
             {pages.map((category) => (

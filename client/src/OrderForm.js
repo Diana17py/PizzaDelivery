@@ -7,14 +7,34 @@ const OrderForm = ({ onClose, onOrderConfirmed }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [deliveryOption, setDeliveryOption] = useState('self-pickup'); 
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    try {
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          address,
+          phoneNumber,
+          deliveryOption,
+        }),
+      });
 
-   
-
-    onOrderConfirmed();
-    onClose();
+      if (response.ok) {
+        // Викликати колбек, щоб підтвердити замовлення
+        onOrderConfirmed();
+        onClose();
+      } else {
+        console.error('Error placing order:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error placing order:', error.message);
+    }
   };
+
 
   return (
     <div className="order-form-container">

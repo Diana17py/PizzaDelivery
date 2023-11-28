@@ -157,7 +157,7 @@
 }
 
 .order-form form button {
-  background-color: #e01c1c;
+  background-color: #ff6060;
   color: #ffffff;
   border: none;
   padding: 10px 20px;
@@ -169,5 +169,5 @@
 }
 
 .order-form form button:hover {
-  background-color: #e01c1c;
+  background-color: #ff6060;
 }
