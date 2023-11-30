@@ -34,7 +34,7 @@
   transition: background-color 0.3s ease, color 0.3s ease; /* плавна зміна фону і тексту при наведенні */
 }
 
-.user-dashboard .menu button:hover {
+.user-dashboard .menu button:hover, .user-dashboard .menu button.active {
   background-color: #ff6060; /* новий колір фону кнопки при наведенні */
   color: white; /* новий колір тексту кнопки при наведенні */
 }

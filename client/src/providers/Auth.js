@@ -8,7 +8,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     axios.get(`http://127.0.0.1:3001/api/users/profile`, {withCredentials: true})
       .then(response => {
-        console.log(response.status, response.data);
         if (response.status === 200){
           setProfile(response.data.profile);
         }

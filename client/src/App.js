@@ -23,7 +23,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from './providers/Auth';
 import { ToastContainer } from 'react-toastify';
 import LogoutButton from './pages/LogoutButton';
-//import UserDashboard from './layouts/UserDashboardLayout';
+import UserDashboard from './layouts/UserDashboardLayout';
+import OrderHistory from './OrderHistory';
 
 const useProfile = () => {
   return React.useContext(AuthContext);
@@ -198,7 +199,8 @@ const App = () => {
             <Route path="/:pizzaId" element={<PizzaDetails onPizzaClick={handlePizzaClick}  />} />
             <Route path="/registration" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard profile={profile} />} />
+            <Route path="/dashboard" element={<UserDashboard><Dashboard profile={profile} /></UserDashboard>} />
+            <Route path="/dashboard/orders" element={<UserDashboard><OrderHistory profile={profile} /></UserDashboard>} />
         </Routes>
         </main>
         {categoryItemOpen && (

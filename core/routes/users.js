@@ -7,7 +7,8 @@ const bcrypt = require('bcrypt');
 
 
 const createToken = (id) => {
-  return jwt.sign({ id }, "diana kravets super secret key", {
+  const userId = parseInt(id);
+  return jwt.sign({ userId }, "diana kravets super secret key", {
     expiresIn: "5m",
   });
 };
@@ -84,7 +85,7 @@ router.get('/orders',auth.checkJWT, async (req, res) => {
           include:{
             model: Product,
             as: 'product',
-            attributes: ['name']
+            attributes: ['name', 'image']
           }
         }
       },

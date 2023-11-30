@@ -8,16 +8,16 @@ exports.checkJWT = async (req, res, next) => {
       if (error) {
         return res.status(401).json({ status: false, code: 401, error: "invalid Token" });
       } else {
-        const user = await User.findByPk(decodedToken.id);
+        const user = await User.findByPk(decodedToken.userId);
         if (user) {
-          const userId = user.id;
+          const userId = parseInt(user.id);
           req.decodedUserId = userId;
 
           // Check if the token is close to expiration, and refresh if needed
           const currentTime = Math.floor(Date.now() / 1000);
           if (decodedToken.exp - currentTime < 60 * 5) { // Refresh if less than 5 minutes remaining
             const newToken = jwt.sign(
-              { userId },
+              {userId},
               "diana kravets super secret key",
               {
                 expiresIn: "5m",

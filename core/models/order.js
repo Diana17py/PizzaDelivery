@@ -44,6 +44,10 @@ module.exports = (sequelize, DataTypes) => {
     courier_id: {
       allowNull: true,
       type: DataTypes.INTEGER
+    },
+    created_at: {
+      allowNull: false,
+      type: DataTypes.DATE
     }
   },
   {
