@@ -1,6 +1,5 @@
-/* OrderHistory.css */
 .order-history-container {
-  margin-top: 20px;
+  margin: 20px;
 }
 
 .order-history-title {
@@ -9,26 +8,32 @@
 }
 
 .order-list {
-  list-style: none;
-  padding: 0;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.order-list th, .order-list td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.order-list th {
+  background-color: #f2f2f2;
 }
 
 .order-item {
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-  padding: 10px;
+  background-color: #fff;
 }
 
-.order-details {
-  display: flex;
-  justify-content: space-between;
+.no-orders {
+  font-size: 18px;
+  color: #555;
+  margin: 20px;
 }
 
-.order-id {
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.order-info {
-  font-size: 14px;
+.loading {
+  font-size: 18px;
+  color: #555;
+  margin: 20px;
 }

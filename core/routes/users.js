@@ -4,6 +4,7 @@ const { User, Order, UserAddress, Cart, CartItem, Product, Invoice } = require('
 const auth = require("../middlewares/auth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
+const upload = require('../middlewares/upload');
 
 
 const createToken = (id) => {
@@ -109,6 +110,62 @@ router.get('/orders',auth.checkJWT, async (req, res) => {
   }
 });
 
+router.get('/orders/:id', auth.checkJWT, async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const orderDetails = await Order.findByPk(orderId, {
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['first_name', 'last_name', 'phone_number']
+        },
+        {
+          model: UserAddress,
+          as: 'user_address',
+          attributes: ['address'],
+          required: false
+        },
+        {
+          model: Cart,
+          as: 'cart',
+          include: {
+            model: CartItem,
+            as: 'cart_items',
+            attributes: ['product_id', 'quantity', 'price_per_item'],
+            include: {
+              model: Product,
+              as: 'product',
+              attributes: ['name', 'image']
+            }
+          }
+        },
+        {
+          model: Invoice,
+          as: 'invoice',
+          attributes: ['status', 'created_at'],
+          required: false
+        },
+        {
+          model: User,
+          as: 'courier',
+          attributes: ['first_name', 'last_name', 'phone_number'],
+          required: false
+        }
+      ]
+    });
+
+    if (!orderDetails) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+
+    res.json({ order: orderDetails });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error fetching order details' });
+  }
+});
+
 router.delete('/logout',auth.checkJWT, async (req, res) => {
   try {
     res.clearCookie("jwt");
@@ -122,6 +179,39 @@ router.get('/profile', auth.checkJWT, async (req, res) => {
   try {
     const profile = await User.findByPk(req.decodedUserId, {attributes: ["id", "email", "first_name", "last_name"]});
     res.json({profile: profile});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Помилка отримання даних' });
+  }
+});
+
+router.get('/dashboard', auth.checkJWT, async (req, res) => {
+  try {
+    const newOrdersCount = await Order.count({where: {status: "new"} });
+    const allOrdersCount = await Order.count({});
+    const total = await Order.sum('total_price');
+    res.json({dashboard: {
+      new_orders_count: newOrdersCount,
+      all_orders_count: allOrdersCount,
+      total: total
+    }});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Помилка отримання даних' });
+  }
+});
+
+router.put('/settings', [auth.checkJWT, upload.single('avatar')], async (req, res) => {
+  try {
+    const { first_name, last_name, delivery_type, phone_number } = req.body;
+    User.update({ 
+      avatar: req.userAvatarPath,
+      first_name: first_name,
+      last_name: last_name,
+      delivery_type: delivery_type,
+      phone_number: phone_number
+    }, {where: {id: req.decodedUserId}})
+    res.json({success: true});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Помилка отримання даних' });

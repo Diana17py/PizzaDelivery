@@ -25,6 +25,8 @@ import { ToastContainer } from 'react-toastify';
 import LogoutButton from './pages/LogoutButton';
 import UserDashboard from './layouts/UserDashboardLayout';
 import OrderHistory from './OrderHistory';
+import OrderDetails from './OrderDetails';
+import Settings from './Settings';
 
 const useProfile = () => {
   return React.useContext(AuthContext);
@@ -200,7 +202,9 @@ const App = () => {
             <Route path="/registration" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<UserDashboard><Dashboard profile={profile} /></UserDashboard>} />
+            <Route path="/dashboard/orders/:orderId" element={<UserDashboard><OrderDetails /></UserDashboard>} />
             <Route path="/dashboard/orders" element={<UserDashboard><OrderHistory profile={profile} /></UserDashboard>} />
+            <Route path="/dashboard/settings" element={<UserDashboard><Settings profile={profile} /></UserDashboard>} />
         </Routes>
         </main>
         {categoryItemOpen && (

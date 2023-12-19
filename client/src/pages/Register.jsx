@@ -15,7 +15,8 @@ export default function Register() {
     email: '',
     password: '',
     first_name: '',
-    last_name: ''
+    last_name: '',
+    phone_number: ''
   });
   const [loading, setLoading] = useState(false);
 
@@ -99,6 +100,17 @@ export default function Register() {
             placeholder="Last name"
             value={values.last_name}
             onChange={(e) => setValues({ ...values, last_name: e.target.value })}
+          />
+        </div>
+        <div>
+          <label htmlFor="phone_number">Phone number</label>
+          <input
+            type="phone_number"
+            id="phone_number" 
+            name="phone_number"
+            placeholder="phone number"
+            value={values.phone_number}
+            onChange={(e) => setValues({ ...values, phone_number: e.target.value })}
           />
         </div>
         <button type="submit" disabled={loading}>

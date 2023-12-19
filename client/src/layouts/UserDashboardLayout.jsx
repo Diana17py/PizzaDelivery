@@ -28,6 +28,9 @@ const UserDashboard = ({ children }) => {
             <Link to="/dashboard/orders">
               <button className={window.location.pathname === "/dashboard/orders"?"active":""}>Orders</button>
             </Link>
+            <Link to="/dashboard/settings">
+              <button className={window.location.pathname === "/dashboard/settings"?"active":""}>Settings</button>
+            </Link>
           </ul>
         </div>
         <div className="main">{children}</div>

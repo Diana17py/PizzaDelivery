@@ -25,18 +25,18 @@
 }
 
 .user-dashboard .menu button {
-  background-color: white; /* колір фону кнопки */
-  color: #333; /* колір тексту кнопки */
-  padding: 10px; /* відступи кнопки */
-  border: none; /* обнулення границі кнопки */
+  background-color: white; 
+  color: #333; 
+  padding: 10px; 
+  border: none; 
   cursor: pointer; /* зміна вигляду курсору при наведенні */
   width: 100%; /* розтягуємо кнопку на всю ширину батьківського контейнера */
   transition: background-color 0.3s ease, color 0.3s ease; /* плавна зміна фону і тексту при наведенні */
 }
 
 .user-dashboard .menu button:hover, .user-dashboard .menu button.active {
-  background-color: #ff6060; /* новий колір фону кнопки при наведенні */
-  color: white; /* новий колір тексту кнопки при наведенні */
+  background-color: #ff6060; 
+  color: white; 
 }
 
 /* .user-dashboard .main стилі */
@@ -51,10 +51,46 @@
   overflow-y: auto; /* дозволяє прокручувати, якщо контент занадто великий */
 }
 
-/* .user-dashboard стилі для коректного очищення плавання */
-
 .user-dashboard:after {
   content: '';
   display: table;
   clear: both;
 }
+.dashboard-container {
+  padding: 20px;
+  margin-bottom: 20px; 
+}
+
+.order-info-blocks {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.order-info-block {
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  border: 3px solid #ff6060;
+  padding: 10px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.info-label {
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.info-value {
+  margin-top: 5px;
+  font-size: larger; 
+  text-align: center;
+}
+
+

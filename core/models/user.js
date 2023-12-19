@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
     delivery_type: {
       allowNull: false,
       type: DataTypes.STRING
+    },
+    avatar: {
+      allowNull: false,
+      type: DataTypes.STRING
     }
   },
   {
