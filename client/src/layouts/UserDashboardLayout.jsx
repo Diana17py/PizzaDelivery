@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './UserDashboard.css';
 import { AuthContext } from '../providers/Auth';
 import { useNavigate, Link } from 'react-router-dom';
@@ -7,15 +7,17 @@ const useProfile = () => {
   return React.useContext(AuthContext);
 };
 
-const UserDashboard = ({ children }) => {
+const UserDashboard = ({children }) => {
   const navigate = useNavigate();
   const { profile } = useProfile();
   const { id: userId } = profile;
   const userIsLogged = parseInt(userId) > 0;
 
-  if (!userIsLogged) {
-    return navigate('/login');
-  }
+  useEffect(() => {
+    if (!userIsLogged) {
+     // navigate("/login");
+    }
+  }, [navigate, userIsLogged]);
 
   return (
     <>
