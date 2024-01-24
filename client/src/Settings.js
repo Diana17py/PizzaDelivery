@@ -114,12 +114,15 @@ const Settings = () => {
             <br />
             <label>
               Delivery Type:
-              <input
+              <select
                 type="text"
                 name="delivery_type"
                 value={formData.delivery_type || ''}
                 onChange={e => handleInput(e, "delivery_type")}
-              />
+              >
+                <option value="courier">courier</option>
+                <option value="selfDelivery">self delivery</option>
+              </select>
             </label>
             <br />
             <label>

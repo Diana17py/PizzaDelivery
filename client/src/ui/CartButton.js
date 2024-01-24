@@ -10,3 +10,5 @@ export const CartButton = ({ pizza, totalPrice, quantity }) => {
     </button>
   );
 };
+
+export default CartButton;

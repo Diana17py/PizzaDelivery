@@ -1,5 +1,3 @@
-/* Pizza.css */
-
 .pizza-container {
   display: flex;
   flex-wrap: wrap;
@@ -11,7 +9,7 @@
   border: 1px solid #ddd;
   padding: 10px;
   text-align: center;
-  width: calc(20% - 20px); /* 5 items per row */
+  width: calc(20% - 20px); 
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
 }
@@ -82,7 +80,7 @@
 
 .pizza-details-card img {
   height: 100%;
-  object-fit: contain; /* Змінив object-fit на 'contain' */
+  object-fit: contain; 
 }
 
 .pizza-details-card p {
@@ -122,7 +120,7 @@
   border-radius: 5px;
   margin-bottom: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  text-align: left; /* Вирівнювання по правому боці */
+  text-align: left; 
 }
 
 .pizza-text p {
@@ -142,7 +140,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px; /* Змініть це значення на те, яке підходить вам */
+  margin-top: 20px; 
 }
 
 .place-pizza-logo-link {
@@ -162,12 +160,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: auto; /* Заставте елемент внизу */
-  margin-bottom: 20px; /* Додайте знизу відступ */
+  margin-top: auto; 
+  margin-bottom: 20px;
 }
 @media screen and (max-width: 768px) {
   .pizza-item {
-    width: calc(50% - 20px); /* Дві піци в рядок на менших екранах */
+    width: calc(50% - 20px); 
   }
 }
 
@@ -188,7 +186,7 @@
   border: 1px solid #ddd;
   padding: 10px;
   text-align: center;
-  width: calc(20% - 20px); /* 5 items per row */
+  width: calc(20% - 20px); 
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
 }
@@ -219,4 +217,47 @@
 
 .snack-card button:hover {
   background-color: #ff6060;
+}
+.drink-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.drink-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  width: calc(20% - 20px);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}
+
+.drink-image {
+  max-height: 150px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.drink-card h3 {
+  margin: 10px 0;
+  font-size: 1.2rem;
+}
+
+.drink-card p {
+  margin: 5px 0;
+}
+
+.drink-card button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.drink-card button:hover {
+  background-color: #d32f2f;
 }

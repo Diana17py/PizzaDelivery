@@ -18,8 +18,6 @@ const PizzaDetails = ({pizza, onClose }) => {
     return (basePrice * quantity).toFixed(2);
   };
 
-  console.log(quantity)
-
   const totalPrice = calculateTotalPrice()
 
   return (

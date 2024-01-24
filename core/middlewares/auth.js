@@ -13,9 +13,8 @@ exports.checkJWT = async (req, res, next) => {
           const userId = parseInt(user.id);
           req.decodedUserId = userId;
 
-          // Check if the token is close to expiration, and refresh if needed
           const currentTime = Math.floor(Date.now() / 1000);
-          if (decodedToken.exp - currentTime < 60 * 5) { // Refresh if less than 5 minutes remaining
+          if (decodedToken.exp - currentTime < 60 * 5) { 
             const newToken = jwt.sign(
               {userId},
               "diana kravets super secret key",

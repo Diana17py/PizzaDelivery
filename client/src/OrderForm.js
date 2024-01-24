@@ -24,7 +24,6 @@ const OrderForm = ({ onClose, onOrderConfirmed }) => {
       });
 
       if (response.ok) {
-        // Викликати колбек, щоб підтвердити замовлення
         onOrderConfirmed();
         onClose();
       } else {

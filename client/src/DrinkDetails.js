@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './DrinkDetails.css';
 import { CartButton } from './ui/CartButton';
 
-const DrinkDetails = ({drink, onClose }) => {
+const DrinkDetails = ({ drink, onClose }) => {
   const [quantity, setQuantity] = useState(1);
 
   if (!drink) {
@@ -18,9 +18,7 @@ const DrinkDetails = ({drink, onClose }) => {
     return (basePrice * quantity).toFixed(2);
   };
 
-  console.log(quantity)
-
-  const totalPrice = calculateTotalPrice()
+  const totalPrice = calculateTotalPrice();
 
   return (
     <div className="drink-details-container">
@@ -30,8 +28,8 @@ const DrinkDetails = ({drink, onClose }) => {
         </span>
         <h3>{drink.name}</h3>
         <img src={drink.image} alt={drink.name} />
-        <p>{drink.description}</p>
         <p>Price: {drink.price}USD</p>
+        <p>Description: {drink.description}</p>
 
         <div className="quantity-container">
           <span>Quantity:</span>
@@ -45,7 +43,7 @@ const DrinkDetails = ({drink, onClose }) => {
 
         <p>Total Price: {totalPrice} USD</p>
 
-        <CartButton drink={drink} totalPrice={totalPrice} quantity={quantity}/>
+        <CartButton drink={drink} totalPrice={totalPrice} quantity={quantity} />
       </div>
     </div>
   );

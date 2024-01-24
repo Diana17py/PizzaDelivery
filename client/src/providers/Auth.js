@@ -6,7 +6,7 @@ export const AuthProvider = ({ children }) => {
   
   const [profile, setProfile] = useState({profile:{}});
   useEffect(() => {
-    (async () => {
+    (async () => { 
     axios.get(`http://127.0.0.1:3001/api/users/profile`, {withCredentials: true})
       .then(response => {
         if (response.status === 200){

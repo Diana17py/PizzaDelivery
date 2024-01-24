@@ -95,7 +95,7 @@ const App = () => {
     if (!cartId) {
       axios.post('http://127.0.0.1:3001/api/cart')
         .then(response => {
-          sessionStorage.setItem('cartId', response.data._id);
+          sessionStorage.setItem('cartId', response.data.id);
         })
         .catch(error => {
           console.error('Error creating cart:', error);

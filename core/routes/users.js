@@ -5,6 +5,7 @@ const auth = require("../middlewares/auth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const upload = require('../middlewares/upload');
+const fs = require('fs');
 
 
 const createToken = (id) => {
@@ -38,7 +39,10 @@ router.post('/login', async (req, res) => {
         id: user.id,
         email: user.email,
         first_name: user.first_name,
-        last_name: user.last_name
+        last_name: user.last_name,
+        delivery_type: user.delivery_type,
+        phone_number: user.phone_number,
+        avatar: user.avatar
       } });
   } catch (err) {
     res.json({ errors: err.message });
@@ -47,12 +51,12 @@ router.post('/login', async (req, res) => {
 
 router.post('/registration', async (req, res) => {
   try {
-    const { email, password, first_name, last_name } = req.body;
+    const { email, password, first_name, last_name, phone_number } = req.body;
     const userCount = await User.count({where: {email: email}});
     if (userCount > 0){
       res.status(500).json({ errors: {email:"User is already exists",password: false}, created: false });
     }else{
-      const user = await User.create({ email, password, first_name, last_name });
+      const user = await User.create({ email, password, first_name, last_name, phone_number });
       res.status(201).json({ user: user.id, created: true });
     }
     
@@ -177,7 +181,9 @@ router.delete('/logout',auth.checkJWT, async (req, res) => {
 
 router.get('/profile', auth.checkJWT, async (req, res) => {
   try {
-    const profile = await User.findByPk(req.decodedUserId, {attributes: ["id", "email", "first_name", "last_name"]});
+    const profile = await User.findByPk(req.decodedUserId, {attributes: ["id", "email", "first_name", "last_name", "delivery_type", "phone_number", "avatar"]});
+    const img = fs.readFileSync(profile.avatar);
+    profile.avatar = `data:image/png;base64,${Buffer.from(img).toString("base64")}`;
     res.json({profile: profile});
   } catch (error) {
     console.error(error);
@@ -204,13 +210,16 @@ router.get('/dashboard', auth.checkJWT, async (req, res) => {
 router.put('/settings', [auth.checkJWT, upload.single('avatar')], async (req, res) => {
   try {
     const { first_name, last_name, delivery_type, phone_number } = req.body;
-    User.update({ 
-      avatar: req.userAvatarPath,
+    let settings = { 
       first_name: first_name,
       last_name: last_name,
       delivery_type: delivery_type,
       phone_number: phone_number
-    }, {where: {id: req.decodedUserId}})
+    }
+    if (req.file?.path){
+      settings.avatar = req.file.path
+    }
+    User.update(settings, {where: {id: req.decodedUserId}})
     res.json({success: true});
   } catch (error) {
     console.error(error);

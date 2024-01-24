@@ -4,8 +4,8 @@ const fs = require('fs');
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const path = `uploads/${req.decodedUserId}/`
+    fs.rmSync(path, { recursive: true, force: true });
     fs.mkdirSync(path, { recursive: true })
-    req.userAvatarPath = path;
     cb(null, path );
   },
   filename: (req, file, cb) => {

@@ -47,7 +47,6 @@ header {
 .delivery-info span {
   margin-right: 10px;
 }
-/* Стиль для вікна "Інформація" */
 
 .info-window {
   display: none;
@@ -88,8 +87,6 @@ header {
   cursor: pointer;
 }
 
-
-/* Стиль для затемнення фону */
 .modal {
   display: flex;
   position: fixed;
@@ -103,7 +100,6 @@ header {
   z-index: 9999;
 }
 
-/* Стиль для контейнера вікна */
 .modal-content {
   background-color: #ffffff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -114,19 +110,16 @@ header {
   text-align: center;
 }
 
-/* Стиль для заголовка вікна */
 h2 {
   font-size: 24px;
   margin-bottom: 10px;
 }
 
-/* Стиль для тексту вікна */
 p {
   font-size: 16px;
   margin-bottom: 20px;
 }
 
-/* Стиль для кнопки закриття */
 button {
   border: none;
   background-color: #ccc;
@@ -223,7 +216,7 @@ button {
 .category-link:hover {
   background-color: #f9f9f9;
 }
-/*banner*/
+
 .banner {
   width: 100%;
   max-width: 100%;
@@ -255,7 +248,6 @@ button {
     display: none;
   }
 }
-/*Найчастіше замовляють*/
 
 .frequently-ordered {
   margin-top: 20px;
@@ -277,8 +269,6 @@ button {
   justify-content: space-around;
   width: 100%;
 }
-
-/* Кастомні стилі для кожного елемента CategoryItem */
 
 .category-item {
   margin: 10px;

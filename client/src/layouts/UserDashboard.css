@@ -1,27 +1,25 @@
-/* .user-dashboard .menu стилі */
-
 .user-dashboard .menu {
   float: left;
   width: 20%;
   text-align: left;
   padding: 15px;
-  background-color: #f2f2f2; /* фон меню */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* тінь */
-  height: 100vh; /* на весь екран по висоті */
-  overflow-y: auto; /* дозволяє прокручувати, якщо контент занадто великий */
+  background-color: #f2f2f2; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  height: 100vh; 
+  overflow-y: auto; 
 }
 
 .user-dashboard .menu a {
   text-decoration: none;
-  color: #333; /* колір посилань */
+  color: #333; 
   display: block;
   padding: 10px 0;
-  transition: color 0.3s ease; /* плавна зміна колору при наведенні */
+  transition: color 0.3s ease; 
 }
 
 .user-dashboard .menu a:hover {
   text-decoration: underline;
-  color: black; /* колір посилань при наведенні */
+  color: black; 
 }
 
 .user-dashboard .menu button {
@@ -29,9 +27,9 @@
   color: #333; 
   padding: 10px; 
   border: none; 
-  cursor: pointer; /* зміна вигляду курсору при наведенні */
-  width: 100%; /* розтягуємо кнопку на всю ширину батьківського контейнера */
-  transition: background-color 0.3s ease, color 0.3s ease; /* плавна зміна фону і тексту при наведенні */
+  cursor: pointer;
+  width: 100%; 
+  transition: background-color 0.3s ease, color 0.3s ease; 
 }
 
 .user-dashboard .menu button:hover, .user-dashboard .menu button.active {
@@ -39,16 +37,14 @@
   color: white; 
 }
 
-/* .user-dashboard .main стилі */
-
 .user-dashboard .main {
   float: left;
   width: 80%;
   padding: 15px;
-  background-color: #fff; /* фон основного контенту */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* тінь */
-  height: 100vh; /* на весь екран по висоті */
-  overflow-y: auto; /* дозволяє прокручувати, якщо контент занадто великий */
+  background-color: #fff; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  height: 100vh; 
+  overflow-y: auto; 
 }
 
 .user-dashboard:after {

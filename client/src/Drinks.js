@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import DrinkDetails from './DrinkDetails';
-import './Drinks.css';
+import PizzaDetails from './PizzaDetails'; 
+import './Pizza.css';
 import { Link } from 'react-router-dom';
 
 const Drinks = () => {
@@ -47,11 +47,10 @@ const Drinks = () => {
           </div>
         ))}
       </div>
-      {selectedDrink && (
-        <DrinkDetails
-          isOpen={true}
-          drink={selectedDrink}
-          onClose={closeDrinkDetails}
+      {!!selectedDrink && (
+        <PizzaDetails
+        pizza={selectedDrink}
+        onClose={closeDrinkDetails}
         />
       )}
       <section className="place-pizza-logo">

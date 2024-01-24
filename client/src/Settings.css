@@ -37,13 +37,13 @@
 
 label {
   display: block;
-  margin-bottom: 8px; /* Зменшили відступ */
+  margin-bottom: 8px; 
 }
 
 input {
-  width: calc(100% - 16px); /* Зменшили відступи */
-  padding: 8px; /* Зменшили відступ */
-  margin-bottom: 12px; /* Зменшили відступ */
+  width: calc(100% - 16px); 
+  padding: 8px; 
+  margin-bottom: 12px; 
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
@@ -76,7 +76,7 @@ input {
 }
 .current-avatar {
   max-width: 100%;
-  max-height: 200px; /* або будь-яка інша висота, яка вам підходить */
+  max-height: 200px; 
   width: 200px;
   height: 200px;
 }
