@@ -5,6 +5,7 @@ export const useCartStore = create((set, get) => ({
   totalPrice: 0,
   addItemToCart: (item) => {
     const isItemExists = get().cartItems.find((product) => item.id === product.id);
+  
     if (isItemExists) {
       set((state) => ({
         cartItems: state.cartItems.map((product) =>
@@ -16,6 +17,7 @@ export const useCartStore = create((set, get) => ({
               }
             : product
         ),
+        totalPrice: state.cartItems.reduce((a, b) => a + b.totalPrice, 0),
       }));
     } else {
       set((state) => ({
@@ -23,11 +25,9 @@ export const useCartStore = create((set, get) => ({
           ...state.cartItems,
           { ...item, totalPrice: item.quantity * item.price },
         ],
+        totalPrice: state.totalPrice + item.quantity * item.price,
       }));
     }
-    set((state) => ({
-      totalPrice: state.cartItems.reduce((a, b) => a + b.totalPrice, 0),
-    }));
   },
   removeItemFromCart: (id) => {
     set((state) => ({

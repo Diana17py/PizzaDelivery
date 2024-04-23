@@ -6,12 +6,13 @@ import reportWebVitals from './reportWebVitals';
 import { CartProvider } from './providers/Cart';
 import { AuthProvider } from './providers/Auth';
 
+
 const root = document.getElementById('root');
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
       <CartProvider>
-        <App />
+         <App />
       </CartProvider>
     </AuthProvider>
   </React.StrictMode>,

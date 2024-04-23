@@ -28,11 +28,11 @@ const PizzaDetails = ({pizza, onClose }) => {
         </span>
         <h3>{pizza.name}</h3>
         <img src={pizza.image} alt={pizza.name} />
-        <p>Price: {pizza.price}USD</p>
-        <p>Description: {pizza.description}</p>
+        <p>Ціна: {pizza.price}UAN</p>
+        <p>Опис: {pizza.description}</p>
 
         <div className="quantity-container">
-          <span>Quantity:</span>
+          <span>Кількість:</span>
           <input
             type="number"
             min="1"
@@ -41,7 +41,7 @@ const PizzaDetails = ({pizza, onClose }) => {
           />
         </div>
 
-        <p>Total Price: {totalPrice} USD</p>
+        <p>Загальна сума: {totalPrice} UAN</p>
 
         <CartButton pizza={pizza} totalPrice={totalPrice} quantity={quantity}/>
       </div>

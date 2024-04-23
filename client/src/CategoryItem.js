@@ -17,8 +17,8 @@ const CategoryItem = ({ pizza, onPizzaClick, ingredients }) => {
         <img src={pizza.image} alt={pizza.name} className="pizza-image" onClick={() =>handlePizzaClick()} />
       </div>
       <h3>{pizza.name}</h3>
-      <p>Price: {pizza.price}USD</p>
-      <button onClick={() => {}}>Add to Cart</button>
+      <p>Ціна: {pizza.price}UAN</p>
+      <button onClick={() => {}}>Додати в корзину</button>
       {infoOpen && (
         <PizzaDetails
         isOpen={true}

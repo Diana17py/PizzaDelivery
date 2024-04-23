@@ -7,24 +7,24 @@ const InfoWindow = ({ isOpen, onClose }) => {
   return (
     <div className={`info-window ${isOpen ? 'open' : ''}`}>
       <div className="info-content">
-        <h2 className="info-title">Delivery and Payment</h2>
+        <h2 className="info-title">Доставка та оплата</h2>
         <p>
-          We are excited to offer our pizza delivery service to the Brooklyn area! Here are the details for delivery in Brooklyn:
+        Ми раді запропонувати нашу послугу доставки піци! Ось деталі доставки:
         </p>
         <div className="info-section">
-          <h3 className="info-subtitle">Delivery Conditions:</h3>
+          <h3 className="info-subtitle">Умови доставки:</h3>
           <p>
-            - Delivery is available to all neighborhoods in Brooklyn.<br />
-            - Minimum order amount for delivery is $15.<br />
-            - Delivery fee is $2.99 per order.<br />
-            - Delivery time may vary based on your location, but we strive to deliver within 30-45 minutes.
+            - Доставка доступна в усі райони Тернопільської області<br />
+            - Мінімальна сума замовлення для доставки становить 100 UAN.<br />
+            - Вартість доставки становить 150 UAN за замовлення.<br />
+            - Час доставки може відрізнятися залежно від вашого місцезнаходження, але ми намагаємося доставити протягом 30-45 хвилин.
           </p>
         </div>
         <div className="info-section">
-          <h3 className="info-subtitle">Payment Options:</h3>
+          <h3 className="info-subtitle">Варіанти оплати:</h3>
           <p>
-            - Cash on delivery: Pay with cash when your order arrives.<br />
-            - Credit Card: You can also pay with a credit card online when placing your order.
+            - Накладений платіж: оплачуйте готівкою, коли ваше замовлення прийде.<br />
+            - Кредитна картка: Ви також можете оплатити кредитною карткою онлайн під час розміщення замовлення.
           </p>
         </div>
       </div>

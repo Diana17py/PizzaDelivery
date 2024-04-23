@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PizzaDetails from './PizzaDetails';
 import './Pizza.css';
-import { Link } from 'react-router-dom';
 import CategoryItem from './CategoryItem';
+import Menu from './Menu'; 
 import axios from 'axios';
 
 const Pizza = () => {
@@ -25,7 +25,7 @@ const Pizza = () => {
 
   return (
     <div>
-      <h2>Pizza</h2>
+       <Menu />
       <div className="pizza-container">
         {pizzas.map((pizza) => (
           <CategoryItem
@@ -44,11 +44,6 @@ const Pizza = () => {
           onPizzaClick={onPizzaClick}
         />
       )}
-      <section className="place-pizza-logo">
-        <Link to="/" className="place-pizza-logo-link">
-          <h2 className="place-pizza-logo-text">PIZZA PLACE</h2>
-        </Link>
-      </section>
     </div>
   );
 };

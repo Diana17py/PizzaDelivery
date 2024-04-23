@@ -1,0 +1,47 @@
+/* Banner.css */
+.banner {
+  position: relative; /* Позиціонування контейнера для банера як відносне */
+}
+
+.banner-image {
+  width: 100%; /* Встановлюємо зображення на всю ширину банера */
+  height: auto;
+}
+
+.banner-content {
+  position: absolute; /* Позиціонуємо контент поверх зображення банера */
+  right: 15%; /* Вирівнюємо текст та кнопку праворуч */
+  top: 50%; /* Вирівнюємо контент по вертикалі */
+  transform: translateY(-50%); /* Вирівнюємо контент по вертикалі */
+  text-align: right; /* Вирівнюємо текст праворуч */
+  padding: 10px;
+}
+
+.banner-text {
+  font-size: 4rem; /* Збільшуємо розмір шрифту заголовка */
+  margin-bottom: 10px;
+  color: black; /* Встановлюємо чорний колір тексту */
+}
+
+.delivery-text {
+  font-size: 4rem; /* Збільшуємо розмір шрифту для тексту DELIVERY */
+  margin-bottom: 20px;
+  color: black; /* Встановлюємо чорний колір тексту */
+}
+
+.order-button {
+  padding: 12px 24px;
+  background-color: #f08080;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.2rem; /* Збільшуємо розмір шрифту для кнопки */
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.order-button:hover {
+  background-color: #e07070;
+}

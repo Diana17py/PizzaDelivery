@@ -25,13 +25,13 @@ const UserDashboard = ({children }) => {
         <div className="menu">
           <ul>
             <Link to="/dashboard">
-              <button className={window.location.pathname === "/dashboard"?"active":""}>Dashboard</button>
+              <button className={window.location.pathname === "/dashboard"?"active":""}>Панель користувача</button>
             </Link>
             <Link to="/dashboard/orders">
-              <button className={window.location.pathname === "/dashboard/orders"?"active":""}>Orders</button>
+              <button className={window.location.pathname === "/dashboard/orders"?"active":""}>Замовлення</button>
             </Link>
             <Link to="/dashboard/settings">
-              <button className={window.location.pathname === "/dashboard/settings"?"active":""}>Settings</button>
+              <button className={window.location.pathname === "/dashboard/settings"?"active":""}>Налаштування</button>
             </Link>
           </ul>
         </div>

@@ -39,23 +39,23 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <h1>Dashboard</h1>
+      <h1>Панель користувача</h1>
       {loading ? (
-        <p>Loading...</p>
+        <p>Завантаження...</p>
       ) : (
         <>
           <div className="order-info-blocks">
             <div className="order-info-block">
-              <div className="info-label">Number of New Orders:</div>
+              <div className="info-label">Кількість нових замовлень:</div>
               <div className="info-value">{numberOfNewOrders}</div>
             </div>
             <div className="order-info-block">
-              <div className="info-label">Number of Orders:</div>
+              <div className="info-label">Кількість замовлень:</div>
               <div className="info-value">{numberOfAllOrders}</div>
             </div>
             <div className="order-info-block">
-              <div className="info-label">Total:</div>
-              <div className="info-value">${Number(total).toFixed(2)}</div>
+              <div className="info-label">Всього:</div>
+              <div className="info-value">UAN{Number(total).toFixed(2)}</div>
             </div>
           </div>
         </>

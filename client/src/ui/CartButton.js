@@ -6,7 +6,7 @@ export const CartButton = ({ pizza, totalPrice, quantity }) => {
 
   return (
     <button onClick={() => addItemToCart({ ...pizza, totalPrice, quantity })}>
-      Add to Cart
+      Додати в корзину
     </button>
   );
 };

@@ -32,22 +32,22 @@ const OrderHistory = ({ profile }) => {
   console.log('Orders in OrderHistory:', orders);
 
   if (!orders || orders.length === 0) {
-    return <p className="no-orders">No orders available.</p>;
+    return <p className="no-orders">Немає доступних замовлень.</p>;
   }
 
   return (
-    loading ? <p>Loading...</p> : (
+    loading ? <p>Завантаження...</p> : (
       <div className="order-history-container">
-        <h2 className="order-history-title">Order History</h2>
+        <h2 className="order-history-title">Історія Замовлень</h2>
         <table className="order-list">
           <thead>
             <tr>
-              <th>Order Id</th>
-              <th>Items</th>
-              <th>Total</th>
-              <th>Status</th>
-              <th>Date</th>
-              <th>View</th>
+              <th>ID замовлення</th>
+              <th>Товар</th>
+              <th>Всього</th>
+              <th>Статус</th>
+              <th>Дата</th>
+              <th>Переглянути</th>
             </tr>
           </thead>
           <tbody>
@@ -63,13 +63,13 @@ const OrderHistory = ({ profile }) => {
                 <td>{order.total_price}</td>
                 <td>
                   <ul>
-                    <li>Order Status: <strong>{order.status}</strong></li>
-                    <li>Invoice Status: <strong>{(order.invoice && order.invoice.status) || "-"}</strong></li>
+                    <li>Статус замовлення: <strong>{order.status}</strong></li>
+                    <li>Статус рахунку: <strong>{(order.invoice && order.invoice.status) || "-"}</strong></li>
                   </ul>
                 </td>
                 <td>{new Date(order.created_at).toLocaleDateString()}</td>
                 <td>
-                  <Link to={`/dashboard/orders/${order.id}`}>View</Link>
+                  <Link to={`/dashboard/orders/${order.id}`}>Переглянути</Link>
                 </td>
               </tr>
             ))}

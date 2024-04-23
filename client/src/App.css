@@ -22,9 +22,7 @@ header {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.logo {
-  font-size: 24px;
-}
+
 .link-style {
   text-decoration: none;
   color: black; 
@@ -187,11 +185,12 @@ button {
   background-color: black;
   color: white;
 }
-
-.categoryes {
+.categories {
   display: flex;
-  justify-content: space-around;
+  align-items: center; /* Вирівнює пункти меню вертикально посередині */
   margin: 10px 0;
+  justify-content: space-between;
+  width: 80%;
 }
 
 .category-link {
@@ -203,6 +202,7 @@ button {
   padding: 8px 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin: 0 10px;
 }
 
 
@@ -299,11 +299,28 @@ button {
   text-align: left;
 }
 .delivery-info-section {
-  margin-top: 100px;
-  margin-left: 60px;
-  margin-right: 60px;
+  background-color: #ffffff; /* Встановлюємо світлий фон */
+  padding: 20px; /* Встановлюємо відступи для контенту */
+  border-radius: 8px; /* Встановлюємо заокруглені кути */
+  margin-top: 20px; /* Встановлюємо верхній відступ */
 }
 
+.delivery-info-text {
+  text-align: left; /* Вирівнюємо текст зліва */
+  font-family: 'Arial', sans-serif; /* Встановлюємо шрифт */
+  color: #333; /* Встановлюємо колір тексту */
+}
+
+.delivery-info-text h2,
+.delivery-info-text h3 {
+  margin-bottom: 10px; /* Встановлюємо відступ після заголовків */
+  color: black; /* Встановлюємо чорний колір заголовків */
+}
+
+.delivery-info-text p {
+  line-height: 1.6; /* Встановлюємо міжрядковий інтервал */
+  margin-bottom: 15px; /* Встановлюємо відступ після абзаців */
+}
 .place-pizza-logo {
   display: flex;
   justify-content: center;
@@ -527,3 +544,34 @@ button {
   cursor: pointer;
 }
 
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header-left span, .header-right span, .header-right a {
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+/* Стилі для нового меню */
+.menu-bar {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.menu-button {
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+}
+
+.menu-button:hover {
+  background-color: black;
+  color: white;
+}

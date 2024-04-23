@@ -7,7 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.6); 
   z-index: 1000;
   transition: opacity 0.3s ease;
   opacity: 0;
@@ -22,11 +22,12 @@
 .info-content {
   background-color: white;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 10px; 
   width: 600px; 
-  max-height: 80vh;
+  max-height: 80vh; 
   overflow-y: auto;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); 
+  position: relative; 
 }
 
 .close-button {
@@ -35,27 +36,30 @@
   right: 10px;
   font-size: 1.5rem;
   cursor: pointer;
+  border: none;
+  background: none;
+  padding: 8px;
+  border: 2px solid black;
+  border-radius: 0; /* Забрали заокруглення */
 }
 
 .info-title {
-  margin-top: 15px;
-  font-size: 2rem;
-  color: #333;
+  margin-top: 15px; 
+  font-size: 2rem; 
+  color: #333; 
 }
 
 .info-subtitle {
-  margin-top: 20px;
-  font-size: 1.5rem;
-  color: #333;
+  margin-top: 20px; 
+  font-size: 1.5rem; 
+  color: #333; 
 }
 
 .info-section {
-  margin-top: 10px;
-  line-height: 1.6;
+  margin-top: 10px; 
+  line-height: 1.6; 
 }
 
 .info-section p {
-  margin-top: 5px;
+  margin-top: 5px; 
 }
-
-

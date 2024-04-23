@@ -30,66 +30,66 @@ const OrderDetails = () => {
   }, [orderId]);
 
   if (loading) {
-    return <p className="loading-message">Loading...</p>;
+    return <p className="loading-message">Завантаження...</p>;
   }
 
   if (!orderDetails) {
-    return <p className="not-found-message">Order details not found.</p>;
+    return <p className="not-found-message">Деталі замовлення не знайдено.</p>;
   }
 
   return (
     <div className="order-details-container">
-      <h2>Order Details</h2>
-      <p>Order ID: {orderDetails.id}</p>
-      <p>Total Price: {orderDetails.total_price}</p>
-      <p>Order Status: <span className="order-status">{orderDetails.status}</span></p>
-      <p>Invoice Status: <span className="invoice-status">{(orderDetails.invoice && orderDetails.invoice.status) || "-"}</span></p>
+      <h2>Деталі замовлення:</h2>
+      <p>ID замовлення: {orderDetails.id}</p>
+      <p>Загальна сума: {orderDetails.total_price}</p>
+      <p>Статус замовлення: <span className="order-status">{orderDetails.status}</span></p>
+      <p>Статус рахунку: <span className="invoice-status">{(orderDetails.invoice && orderDetails.invoice.status) || "-"}</span></p>
 
       <div>
-        <h3>User Information</h3>
-        <p>First Name: {orderDetails.user.first_name}</p>
-        <p>Last Name: {orderDetails.user.last_name}</p>
-        <p>Phone Number: {orderDetails.user.phone_number}</p>
+        <h3>Інформація про користувача</h3>
+        <p>Ім'я: {orderDetails.user.first_name}</p>
+        <p>Прізвище: {orderDetails.user.last_name}</p>
+        <p>Номер телефону:{orderDetails.user.phone_number}</p>
       </div>
 
       <div>
-        <h3>User Address</h3>
-        <p>Address: {(orderDetails.user_address && orderDetails.user_address.address) || "Not provided"}</p>
+        <h3>Адреса користувача</h3>
+        <p>Адреса: {(orderDetails.user_address && orderDetails.user_address.address) || "Not provided"}</p>
       </div>
 
       <div>
-        <h3>Cart Items</h3>
+        <h3>Пункти кошика</h3>
         {orderDetails.cart && orderDetails.cart.cart_items.map((item, index) => (
           <div key={index}>
-            <p>Product Name: {item.product.name}</p>
-            <p>Quantity: {item.quantity}</p>
-            <p>Price per Item: {item.price_per_item}</p>
+            <p>Назва продукту: {item.product.name}</p>
+            <p>Кількість: {item.quantity}</p>
+            <p>Ціна за позицію: {item.price_per_item}</p>
           </div>
         ))}
       </div>
 
       <div>
-        <h3>Invoice Information</h3>
+        <h3>Інформація про рахунок-фактуру</h3>
         {orderDetails.invoice ? (
           <>
-            <p>Status: {orderDetails.invoice.status}</p>
-            <p>Created At: {orderDetails.invoice.created_at}</p>
+            <p>Статус: {orderDetails.invoice.status}</p>
+            <p>Створено: {orderDetails.invoice.created_at}</p>
           </>
         ) : (
-          <p>No invoice available.</p>
+          <p>Немає рахунку-фактури.</p>
         )}
       </div>
 
       <div>
-        <h3>Courier Information</h3>
+        <h3>Кур'єрська інформація</h3>
         {orderDetails.courier ? (
           <>
-            <p>Courier First Name: {orderDetails.courier.first_name}</p>
-            <p>Courier Last Name: {orderDetails.courier.last_name}</p>
-            <p>Courier Phone Number: {orderDetails.courier.phone_number}</p>
+            <p>Ім'я кур'єра: {orderDetails.courier.first_name}</p>
+            <p>Прізвище кур'єра: {orderDetails.courier.last_name}</p>
+            <p>Телефон кур'єра: {orderDetails.courier.phone_number}</p>
           </>
         ) : (
-          <p>No assigned courier.</p>
+          <p>Немає призначеного кур'єра.</p>
         )}
       </div>
     </div>

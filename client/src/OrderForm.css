@@ -1,0 +1,80 @@
+/* Стили для контейнера форми замовлення */
+.order-form-container {
+  background-color: #f2f2f2; /* Світлий сірий фон */
+  padding: 20px; /* Внутрішні відступи */
+  border-radius: 10px; /* Заокруглені кути */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Тінь навколо контейнера */
+  max-width: 600px; /* Максимальна ширина */
+  margin: 0 auto; /* Центрування */
+}
+
+/* Стили для заголовка */
+.order-form h3 {
+  font-size: 1.5rem; /* Розмір шрифту */
+  color: #333; /* Темно-сірий колір */
+  margin-bottom: 20px; /* Відступ від нижнього елементу */
+}
+
+/* Стили для полів введення */
+.order-form form label {
+  font-size: 1.1rem; /* Розмір шрифту */
+  color: #333; /* Темно-сірий колір */
+  margin-bottom: 10px; /* Відступ між полями */
+}
+
+.order-form form input,
+.order-form form textarea {
+  width: 100%; /* Ширина поля */
+  padding: 10px; /* Внутрішні відступи */
+  border-radius: 5px; /* Заокруглені кути */
+  border: 1px solid #ccc; /* Сірий колір кордону */
+  margin-bottom: 10px; /* Відступ між полями */
+  outline: none; /* Відключення виділення при фокусі */
+}
+
+/* Стили для кнопки */
+.order-button {
+  display: block; /* Відображення як блочний елемент */
+  width: 100%; /* Ширина 100% контейнера */
+  padding: 12px 0; /* Внутрішні відступи */
+  background-color: #e01c1c; /* Червоний фон */
+  color: #fff; /* Білий текст */
+  border-radius: 5px; /* Заокруглені кути */
+  border: none; /* Відсутність кордону */
+  cursor: pointer; /* Вказівник при наведенні */
+  font-size: 1.2rem; /* Розмір шрифту */
+  transition: background-color 0.3s ease; /* Перехідний ефект при зміні фону */
+}
+
+/* Стили для кнопки при наведенні */
+.order-button:hover {
+  background-color: #c90a0a; /* Темніший червоний колір */
+}
+
+/* Стили для подяки після успішного замовлення */
+.thank-you-message {
+  text-align: center; /* Центрування тексту */
+}
+
+.thank-you-message h4 {
+  color: #333; /* Темно-сірий колір */
+  margin-bottom: 10px; /* Відступ від нижнього елементу */
+}
+
+.thank-you-message p {
+  color: #666; /* Світло-сірий колір */
+}
+/* Стили для зображень у замовленні */
+.cart-item-image {
+  width: 50px; /* Ширина зображення */
+  height: 50px; /* Висота зображення */
+  border-radius: 5px; /* Заокруглені кути */
+  object-fit: cover; /* Збереження пропорцій при зміні розмірів */
+  margin-right: 10px; /* Відступ праворуч від зображення */
+}
+.form-divider {
+  border: none;
+  height: 1px; /* Висота лінії */
+  background-color: #ddd; /* Колір лінії */
+  margin: 10px 0; /* Відступи з боків лінії */
+}

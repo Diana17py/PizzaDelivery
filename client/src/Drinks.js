@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PizzaDetails from './PizzaDetails'; 
 import './Pizza.css';
-import { Link } from 'react-router-dom';
-
+import Menu from './Menu'; // Імпорт компонента Menu
 const Drinks = () => {
   const [drinks, setDrinks] = useState([]);
   const [selectedDrink, setSelectedDrink] = useState(null);
@@ -28,7 +27,7 @@ const Drinks = () => {
 
   return (
     <div>
-      <h2>Drinks</h2>
+       <Menu />
       <div className="drink-container">
         {drinks.map((drink) => (
           <div key={drink.id} className="drink-card">
@@ -42,8 +41,8 @@ const Drinks = () => {
             </div>
             <h3>{drink.name}</h3>
             <p>{drink.description}</p>
-            <p>Price: {drink.price} USD</p>
-            <button onClick={() => openDrinkDetails(drink)}>Add to cart</button>
+            <p>Ціна: {drink.price} UAN</p>
+            <button onClick={() => openDrinkDetails(drink)}>Додати в корзину</button>
           </div>
         ))}
       </div>
@@ -53,11 +52,6 @@ const Drinks = () => {
         onClose={closeDrinkDetails}
         />
       )}
-      <section className="place-pizza-logo">
-        <Link to="/" className="place-pizza-logo-link">
-          <h2 className="place-pizza-logo-text">PIZZA PLACE</h2>
-        </Link>
-      </section>
     </div>
   );
 };

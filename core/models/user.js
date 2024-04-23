@@ -31,11 +31,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     delivery_type: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.STRING
     },
     avatar: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.STRING
     }
   },

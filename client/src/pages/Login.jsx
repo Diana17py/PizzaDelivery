@@ -51,10 +51,10 @@ export default function Login() {
 
   return (
     <div className="container">
-      <h2>Login Account</h2>
+      <h2>Вхід в обліковий запис</h2>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">Електронна пошта</label>
           <input
             type="email"
             id="email" 
@@ -65,7 +65,7 @@ export default function Login() {
           />
         </div>
         <div>
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">Пароль</label>
           <input
             type="password"
             id="password" 
@@ -79,7 +79,7 @@ export default function Login() {
           {loading ? 'Logging in...' : 'Login'}
         </button>
         <span>
-          No account? <Link to="/registration">Register</Link>
+          Немає акаунту? <Link to="/registration">Зареєструватися</Link>
         </span>
       </form>
     </div>

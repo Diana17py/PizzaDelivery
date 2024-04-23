@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PizzaDetails from './PizzaDetails'; 
+import Menu from './Menu'; // Імпорт компонента Menu
 import './Pizza.css'; 
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Snacks = () => {
@@ -28,7 +28,7 @@ const Snacks = () => {
 
   return (
     <div>
-      <h2>Snacks</h2>
+      <Menu />
       <div className="snack-container"> 
         {snacks.map((snake) => (
           <div key={snake.id} className="snack-card"> 
@@ -41,8 +41,8 @@ const Snacks = () => {
               />
             </div>
             <h3>{snake.name}</h3>
-            <p>Price: {snake.price} USD</p>
-            <button onClick={() => openSnakeDetails(snake)}>Add to cart</button>
+            <p>Ціна: {snake.price} UAN</p>
+            <button onClick={() => openSnakeDetails(snake)}>Додати в корзину</button>
           </div>
         ))}
       </div>
@@ -52,11 +52,6 @@ const Snacks = () => {
           onClose={closeSnakeDetails}
         />
       )}
-      <section className="place-pizza-logo">
-        <Link to="/" className="place-pizza-logo-link">
-          <h2 className="place-pizza-logo-text">PIZZA PLACE</h2>
-        </Link>
-      </section>
     </div>
   );
 };

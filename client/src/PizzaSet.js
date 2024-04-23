@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PizzaDetails from './PizzaDetails';
 import './Pizza.css';
-import { Link } from 'react-router-dom';
+import Menu from './Menu'; // Імпорт компонента Menu
 import axios from 'axios';
 
 const PizzaSet = () => {
@@ -40,8 +40,7 @@ const PizzaSet = () => {
 
   return (
     <div>
-      <h2>Pizza Sets</h2>
-
+       <Menu />
       <div className="pizza-container">
         {pizzaSets.map((pizzaSet) => (
           <div key={pizzaSet.id} className="pizza-card">
@@ -54,30 +53,30 @@ const PizzaSet = () => {
               />
             </div>
             <h3>{pizzaSet.name}</h3>
-            <p>Price: {pizzaSet.price} USD</p>
+            <p>Ціна: {pizzaSet.price} UAN</p>
             
             <button onClick={() => addToCart(pizzaSet, 1, null)}>
-              Add to Cart
+            Додати в кошик
             </button>
           </div>
         ))}
         <div className="pizza-text">
           <p>
-            Did you have unexpected guests? Do you want to arrange home
-            gatherings or a small holiday at work? Just want a tasty snack? We
-            have a great solution for you - pizza kits. You can order the
-            delivery of a set of dishes to your address or pick up the order at
-            the delivery points.
+          До вас прийшли несподівані гості? Хочете оформити будинок
+            зустрічі чи невелике свято на роботі? Просто хочете смачно перекусити? Ми
+            маємо для вас чудове рішення - набори для піци. Ви можете замовити
+            доставка набору за Вашою адресою або самовивіз замовлення за адресою
+            точки доставки.
           </p>
           <p className="additional-text">
-            Pizza on demand – quick, delicious, and cost-effective!
+            Піца на замовлення – швидко, смачно та вигідно!
           </p>
           <p>
-            We care about our customers, which is why we introduced sets for
-            large companies and a simple hearty dinner. In our delivery, there
-            are always promotions on pizza, within the framework of which you
-            can satisfy your hunger and enjoy a classic Italian dish much
-            cheaper. You can order sets on our website:
+          Ми дбаємо про наших клієнтів, тому представили набори для
+            великих компаній і простою ситною вечерею. У нашій доставці, там
+            завжди проходять акції на піцу, в рамках яких ви
+            можна вгамувати голод і насолодитися стравою
+            дешевше. Замовити набори можна на нашому сайті
           </p>
           <ul>
             <li>Pop;</li>
@@ -87,10 +86,10 @@ const PizzaSet = () => {
             <li>XXL.</li>
           </ul>
           <p>
-            The XXL set deserves special attention. You will receive 4.4
-            kilograms of pizza for any taste, to which 6 liters of the drink of
-            your choice are added. Such a set is enough to feed a huge company.
-            Be sure that your guests will be delighted with such a treat.
+          Окремої уваги заслуговує комплект XXL. Ви отримаєте 4.4
+            кілограмів піци на будь-який смак, до яких 6 літрів напою
+            ваш вибір додається. Такого набору вистачить, щоб нагодувати величезну компанію.
+            Будьте впевнені, ваші гості будуть у захваті від такого частування.
           </p>
         </div>
       </div>
@@ -103,11 +102,6 @@ const PizzaSet = () => {
           addToCart={addToCart}
         />
       )}
-      <section className="place-pizza-logo">
-        <Link to="/" className="place-pizza-logo-link">
-          <h2 className="place-pizza-logo-text">PIZZA PLACE</h2>
-        </Link>
-      </section>
     </div>
   );
 };

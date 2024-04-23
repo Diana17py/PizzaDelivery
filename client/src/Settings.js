@@ -80,7 +80,7 @@ const Settings = () => {
   return (
     <div className="settings-container">
       <div className="settings-title-container">
-        <h1 className="settings-title">Settings</h1>
+        <h1 className="settings-title">Налаштування</h1>
       </div>
       <div className="content-container">
         <div className="left-section">
@@ -89,7 +89,7 @@ const Settings = () => {
               <img className="current-avatar" src={currentAvatar} alt="Current Avatar" />
             )}
             <label htmlFor="avatar" className="photo-upload-btn">
-              Change Avatar
+            Змінити аватар
             </label>
             <input
               type="file"
@@ -103,30 +103,30 @@ const Settings = () => {
         <div className="right-section">
           <form onSubmit={handleSubmit}>
             <label>
-              First Name:
+              Ім'я:
               <input type="text" name="first_name" value={formData.first_name || ''} onChange={e => handleInput(e, "first_name")}/>
             </label>
             <br />
             <label>
-              Last Name:
+              Прізвище:
               <input type="text" name="last_name" value={formData.last_name || ''} onChange={e => handleInput(e, "last_name")}/>
             </label>
             <br />
             <label>
-              Delivery Type:
+                Тип доставки:
               <select
                 type="text"
                 name="delivery_type"
                 value={formData.delivery_type || ''}
                 onChange={e => handleInput(e, "delivery_type")}
               >
-                <option value="courier">courier</option>
-                <option value="selfDelivery">self delivery</option>
+                <option value="courier">кур'єр</option>
+                <option value="selfDelivery">самовивіз</option>
               </select>
             </label>
             <br />
             <label>
-              Phone Number:
+              Номер телефону:
               <input
                 type="text"
                 name="phone_number"
@@ -136,7 +136,7 @@ const Settings = () => {
             </label>
             <br />
             <button className="buttonSettings" type="submit">
-              Save Changes
+              Зберегти зміни
             </button>
           </form>
         </div>

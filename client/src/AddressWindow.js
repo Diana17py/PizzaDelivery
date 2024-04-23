@@ -9,7 +9,7 @@ const AddressWindow = ({ isOpen, onClose }) => {
     <div className="info-window open">
       <div className="info-content">
         <h2>PIZZA PLACE</h2>
-        <p>New York, Brooklyn</p>
+        <p>смт Гусятин, вул. Тернопільська 5</p>
         <button className="close-button" onClick={onClose}>
           <FontAwesomeIcon icon={faPizzaSlice} />
         </button>

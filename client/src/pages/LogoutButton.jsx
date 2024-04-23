@@ -26,7 +26,7 @@ const LogoutButton = ({ userIsLogged, userName }) => {
 
   return (
         <button onClick={handleLogout} className="link-style">
-          <FontAwesomeIcon icon={faRightToBracket} /> Logout
+          <FontAwesomeIcon icon={faRightToBracket} /> Вийти
         </button>
   );
 };

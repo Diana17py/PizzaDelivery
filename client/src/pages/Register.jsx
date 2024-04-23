@@ -56,10 +56,10 @@ export default function Register() {
 
   return (
     <div className="container">
-      <h2>Register Account</h2>
+      <h2>Зареєструвати акаунт</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Електронна пошта</label>
           <input
             type="email"
             id="email" 
@@ -70,7 +70,7 @@ export default function Register() {
           />
         </div>
         <div>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Пароль</label>
           <input
             type="password"
             id="password" 
@@ -81,7 +81,7 @@ export default function Register() {
           />
         </div>
         <div>
-          <label htmlFor="first_name">First name</label>
+          <label htmlFor="first_name">Ім'я</label>
           <input
             type="text"
             id="first_name" 
@@ -92,7 +92,7 @@ export default function Register() {
           />
         </div>
         <div>
-          <label htmlFor="last_name">Last name</label>
+          <label htmlFor="last_name">Прізвище</label>
           <input
             type="text"
             id="last_name" 
@@ -103,7 +103,7 @@ export default function Register() {
           />
         </div>
         <div>
-          <label htmlFor="phone_number">Phone number</label>
+          <label htmlFor="phone_number">Номер телефону</label>
           <input
             type="phone_number"
             id="phone_number" 
@@ -117,7 +117,7 @@ export default function Register() {
           {loading ? 'Registering...' : 'Submit'}
         </button>
         <span>
-          Already have an account? <Link to="/login">Login</Link>
+        Вже є аккаунт? <Link to="/login">Увійти</Link>
         </span>
       </form>
     </div>
