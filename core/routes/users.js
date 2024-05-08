@@ -227,4 +227,48 @@ router.put('/settings', [auth.checkJWT, upload.single('avatar')], async (req, re
   }
 });
 
+router.post('/checkout', auth.checkJWT, async (req, res) => {
+  try {
+    const {cartId, totalPrice, userAddressId, address, courierId, deliveryDate, comment} = req.body;
+
+    const t = await sequelize.transaction();
+    try{
+    let realUserAddress = UserAddress.findByPk(userAddressId);
+    if (address){
+      realUserAddress = UserAddress.create({
+        "user_id": req.decodedUserId,
+        "address": `${city},${street}, ${house}, ${apartment}; entrance: ${entrance}, doorCode: ${doorCode}`
+      },
+      { transaction: t });
+    };
+
+    const userInvoice = Invoice.create({
+      "user_id": req.decodedUserId,
+      "status": "new",
+      "created_at": new Date().toLocaleString()
+    },
+      { transaction: t });
+
+    const newOrder = await Order.create({
+      'cart_id': cartId,
+      'user_id': req.decodedUserId,
+      'total_price': totalPrice,
+      'user_address_id': realUserAddress?.id || 0,
+      'invoice_id': userInvoice.id,
+      'courier_id': courierId,
+      'created_at': new Date().toLocaleString(),
+      'comment': `${comment}, deliverydate: ${deliveryDate}`
+    },
+      { transaction: t });
+      await t.commit();
+    }catch (error) {
+      await t.rollback();
+    }
+    return res.status(201).json({orderId: newOrder.id, invoiceId: userInvoice.id});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Помилка отримання даних з бази даних' });
+  }
+});
+
 module.exports = router
