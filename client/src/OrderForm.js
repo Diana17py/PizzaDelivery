@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Cart.css';
+import liqpayClient from './payments/liqpayClient';
 
 const OrderForm = ({ cartItems, clearCart }) => {
   const [name, setName] = useState('');
@@ -25,26 +26,42 @@ const OrderForm = ({ cartItems, clearCart }) => {
       name,
       phoneNumber,
       deliveryOption,
-      address: {
+      paymentOption,
+      comment,
+      cartItems,
+      totalAmount,
+    };
+    if (deliveryOption === 'delivery') {
+      orderData.address = {
         city,
         date,
         house,
         apartment,
         entrance,
         doorCode,
-      },
-      paymentOption,
-      comment,
-      cartItems,
-      totalAmount,
-    };
+      }
+    }
 
     try {
-      const response = await axios.post('/api/orders', orderData);
+      const response = await axios.post('/api/order', orderData);
 
       if (response.status === 200) {
-        setOrderConfirmed(true);
-        clearCart(); // Очищення кошика після успішного оформлення замовлення
+        if (paymentOption === "card") {
+          const description = orderData.cartItems.map((item) => (
+            `${item.name} - ${item.quantity} шт. - ${item.price * item.quantity} грн; ` 
+          ));
+          const paymentParams = {
+            "version": "3",
+            "action": "pay",
+            "amount": orderData.totalAmount,
+            "currency": "UAH",
+            "description": description,
+            "order_id": response.orderId
+          };
+        } else {
+          setOrderConfirmed(true);
+        }
+        clearCart(); 
       } else {
         console.error('Помилка під час оформлення замовлення:', response.statusText);
       }
@@ -198,23 +215,10 @@ const OrderForm = ({ cartItems, clearCart }) => {
                 />
               </label>
 
-              {/* Додати горизонтальну лінію перед кнопкою оформлення замовлення */}
               <hr className="form-divider" />
-
-              {/* Кнопка для відправки форми або посилання на оплату */}
-              {paymentOption === 'card' ? (
-                <a
-                  href="https://example.com/payment" // Посилання на сторінку оплати
-                  target="_blank" // Відкриття у новій вкладці
-                  className="order-button" rel="noreferrer" // Використовуємо клас для стилізації
-                >
-                  Оплатити карткою
-                </a>
-              ) : (
                 <button type="submit" className="order-button">
-                  Оформити замовлення
+                  Оформити{paymentOption === "card" && (" і оплатити")} замовлення
                 </button>
-              )}
             </form>
           </>
         )}
