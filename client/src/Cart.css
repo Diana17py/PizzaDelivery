@@ -291,3 +291,29 @@
 .cart-summary span {
   flex-grow: 1; /* Збільшує розмір span для заповнення простору */
 }
+
+/* CSS для випадаючого списку */
+select {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 15px; /* Додайте відступ між випадаючим списком і наступним елементом */
+}
+
+/* CSS для опцій у випадаючому списку */
+option {
+  padding: 10px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+/* CSS для зображення у випадаючому списку */
+option img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}

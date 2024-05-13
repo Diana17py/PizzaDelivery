@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import './Cart.css';
 import liqpayClient from './payments/liqpayClient';
-
+  
 const OrderForm = ({ cartItems, clearCart }) => {
-  const [name, setName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [couriers, setCouriers] = useState([]);
+  const [selectedCourier, setSelectedCourier] = useState('');
+  const [userAddresses, setUserAddresses] = useState([]);
+  const [selectedAddress, setSelectedAddress] = useState('-1');
   const [deliveryOption, setDeliveryOption] = useState('self-pickup');
   const [city, setCity] = useState('');
+  const [street, setStreet] = useState('');
   const [date, setDate] = useState('');
   const [house, setHouse] = useState('');
   const [apartment, setApartment] = useState('');
@@ -19,48 +22,88 @@ const OrderForm = ({ cartItems, clearCart }) => {
 
   const totalAmount = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
 
+  useEffect(() => {
+    const fetchCouriers = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:3001/api/users/couriers', {
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        setCouriers(await response.json());
+      } catch (error) {
+        console.error('Помилка отримання списку кур\'єрів:', error.message);
+      }
+    };
+    fetchCouriers();
+  }, []);
+
+  useEffect(() => {
+    const fetchUserAddresses = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:3001/api/users/user_addresses',{
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        setUserAddresses(await response.json());
+      } catch (error) {
+        console.error('Помилка отримання списку адрес користувачів:', error.message);
+      }
+    };
+    fetchUserAddresses();
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const orderData = {
-      name,
-      phoneNumber,
-      deliveryOption,
-      paymentOption,
-      comment,
-      cartItems,
-      totalAmount,
+      cartId: sessionStorage.getItem('cartId'),
+      totalPrice: totalAmount,
+      userAddressId: selectedAddress,
+      courierId: selectedCourier, 
+      deliveryDate: date,
+      comment: comment,
+      deliveryType: deliveryOption
     };
+
     if (deliveryOption === 'delivery') {
-      orderData.address = {
-        city,
-        date,
-        house,
-        apartment,
-        entrance,
-        doorCode,
-      }
+      orderData.address = `${city}, ${street}, ${house}, ${apartment}; entrance: ${entrance}, doorCode: ${doorCode}`
     }
 
     try {
-      const response = await axios.post('/api/order', orderData);
+      const response = await fetch('http://127.0.0.1:3001/api/users/checkout', {
+        method: "POST",
+        body: JSON.stringify(orderData),
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
       if (response.status === 200) {
-        if (paymentOption === "card") {
-          const description = orderData.cartItems.map((item) => (
-            `${item.name} - ${item.quantity} шт. - ${item.price * item.quantity} грн; ` 
-          ));
-          const paymentParams = {
-            "version": "3",
-            "action": "pay",
-            "amount": orderData.totalAmount,
-            "currency": "UAH",
-            "description": description,
-            "order_id": response.orderId
-          };
-        } else {
-          setOrderConfirmed(true);
-        }
+        const data = response.json();
+        if (paymentOption === 'card') {
+          try {
+            const description = cartItems.map((item) => (
+              `${item.name} - ${item.quantity} шт. - ${item.price * item.quantity} грн; ` 
+            ));
+            const paymentParams = {
+              version: '3',
+              action: 'pay',
+              amount: totalAmount,
+              currency: 'UAH',
+              description: description.join(' '),
+              order_id: data.orderId
+            };
+            const paymentResponse = await liqpayClient.api('request', paymentParams);
+            console.log(paymentResponse); 
+          } catch (error) {
+            console.error('Помилка під час ініціювання платежу:', error.message);
+          }
+        } 
         clearCart(); 
       } else {
         console.error('Помилка під час оформлення замовлення:', response.statusText);
@@ -69,6 +112,7 @@ const OrderForm = ({ cartItems, clearCart }) => {
       console.error('Помилка під час оформлення замовлення:', error.message);
     }
   };
+  
 
   return (
     <div className="order-form-container">
@@ -83,44 +127,23 @@ const OrderForm = ({ cartItems, clearCart }) => {
           </div>
         ) : (
           <>
-            {/* Вивід замовлень з кошика */}
             <div className="cart-summary">
               <h4>Ваше замовлення:</h4>
               <ul>
                 {cartItems.map((item) => (
                   <li key={item.id}>
                     <img src={item.image} alt={item.name} className="cart-item-image" />
-                    <span>{item.name} - {item.quantity} шт. - {item.price * item.quantity} грн</span>
+                    <span>{item.name} - {item.quantity} шт. - {item.price * item.quantity} UAN</span>
                   </li>
                 ))}
               </ul>
-              <p>Загальна сума: {totalAmount.toFixed(2)} грн</p>
+              <p>Загальна сума: {totalAmount.toFixed(2)} UAN</p>
             </div>
 
-            {/* Додати горизонтальну лінію між секціями */}
             <hr className="form-divider" />
 
             {/* Форма оформлення замовлення */}
             <form onSubmit={handleSubmit}>
-              <label>
-                Ім'я:
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-              </label>
-              <label>
-                Номер телефону:
-                <input
-                  type="tel"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  required
-                />
-              </label>
-
               <label>
                 Варіант доставки:
                 <select
@@ -135,13 +158,79 @@ const OrderForm = ({ cartItems, clearCart }) => {
               {deliveryOption === 'delivery' && (
                 <div className="delivery-info">
                   <label>
-                    Місто:
-                    <input
-                      type="text"
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      required
-                    />
+                    Адреса:
+                    <select
+                      value={selectedAddress}
+                      onChange={(e) => setSelectedAddress(e.target.value)}
+                    >
+                      <option value="-1">Додати нову адресу</option>
+                      {userAddresses.map(userAddress => (
+                        <option key={userAddress.id} value={userAddress.id}>
+                          {userAddress.address}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  { selectedAddress === '-1' && (
+                  <>
+                  <label>
+                    Нова Адреса:
+                        <input
+                          type="text"
+                          value={city}
+                          onChange={(e) => setCity(e.target.value)}
+                          placeholder="Місто"
+                          required
+                        />
+                        <input
+                          type="text"
+                          value={street}
+                          onChange={(e) => setStreet(e.target.value)}
+                          placeholder="Вулиця"
+                          required
+                        />
+                        <input
+                          type="text"
+                          value={house}
+                          onChange={(e) => setHouse(e.target.value)}
+                          placeholder="Будинок"
+                          required
+                        />
+                        <input
+                          type="text"
+                          value={apartment}
+                          onChange={(e) => setApartment(e.target.value)}
+                          placeholder="Квартира"
+                          required
+                        />
+                        <input
+                          type="text"
+                          value={entrance}
+                          onChange={(e) => setEntrance(e.target.value)}
+                          placeholder="Під'їзд"
+                          required
+                        />
+                        <input
+                          type="text"
+                          value={doorCode}
+                          onChange={(e) => setDoorCode(e.target.value)}
+                          placeholder="Код домофону або кодового замка"
+                        />
+                  </label></>
+                  )}
+                  <label>
+                    Кур'єр:
+                    <select
+                      value={selectedCourier}
+                      onChange={(e) => setSelectedCourier(e.target.value)}
+                    >
+                      <option value="">Оберіть кур'єра</option>
+                      {couriers.map(courier => (
+                        <option key={courier.id} value={courier.id}>
+                          {courier.full_name}
+                        </option>
+                      ))}
+                    </select>
                   </label>
                   <label>
                     Дата:
@@ -150,41 +239,6 @@ const OrderForm = ({ cartItems, clearCart }) => {
                       value={date}
                       onChange={(e) => setDate(e.target.value)}
                       required
-                    />
-                  </label>
-                  <label>
-                    Будинок:
-                    <input
-                      type="text"
-                      value={house}
-                      onChange={(e) => setHouse(e.target.value)}
-                      required
-                    />
-                  </label>
-                  <label>
-                    Квартира:
-                    <input
-                      type="text"
-                      value={apartment}
-                      onChange={(e) => setApartment(e.target.value)}
-                      required
-                    />
-                  </label>
-                  <label>
-                    Під'їзд:
-                    <input
-                      type="text"
-                      value={entrance}
-                      onChange={(e) => setEntrance(e.target.value)}
-                      required
-                    />
-                  </label>
-                  <label>
-                    Код домофону або кодового замка:
-                    <input
-                      type="text"
-                      value={doorCode}
-                      onChange={(e) => setDoorCode(e.target.value)}
                     />
                   </label>
                 </div>
@@ -216,9 +270,9 @@ const OrderForm = ({ cartItems, clearCart }) => {
               </label>
 
               <hr className="form-divider" />
-                <button type="submit" className="order-button">
-                  Оформити{paymentOption === "card" && (" і оплатити")} замовлення
-                </button>
+              <button type="submit" className="order-button">
+                Оформити{paymentOption === "card" && (" і оплатити")} замовлення
+              </button>
             </form>
           </>
         )}

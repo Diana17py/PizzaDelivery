@@ -36,7 +36,7 @@ const Settings = () => {
 
         const data = await response.json();
         setCurrentAvatar(data.profile.avatar);
-        const profileData = Object.fromEntries(["first_name", "last_name", "delivery_type", "phone_number"].map(k => [k, data.profile[k]])); 
+        const profileData = Object.fromEntries(["first_name", "last_name", "phone_number"].map(k => [k, data.profile[k]])); 
         setFormData(profileData);
         setProfile(data.profile);
       } catch (error) {
@@ -54,9 +54,6 @@ const Settings = () => {
       formDataO.append(key, formData[key])
     })
 
-  // A file <input> element
-    //const avatar = document.querySelector("#avatar");
-    //formData.append("avatar", avatar.files[0]);
     try {
       const response = await fetch('http://127.0.0.1:3001/api/users/settings', {
         method: 'PUT',
@@ -112,19 +109,7 @@ const Settings = () => {
               <input type="text" name="last_name" value={formData.last_name || ''} onChange={e => handleInput(e, "last_name")}/>
             </label>
             <br />
-            <label>
-                Тип доставки:
-              <select
-                type="text"
-                name="delivery_type"
-                value={formData.delivery_type || ''}
-                onChange={e => handleInput(e, "delivery_type")}
-              >
-                <option value="courier">кур'єр</option>
-                <option value="selfDelivery">самовивіз</option>
-              </select>
-            </label>
-            <br />
+
             <label>
               Номер телефону:
               <input

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 const Cart = () => {
     // Отримуємо стан кошика за допомогою useCartStore
-    const { totalPrice, cartItems, clearCart } = useCartStore();
+    const { totalPrice, cartItems, clearCart, cartId, first_name, last_name, phone_number } = useCartStore();
     const [isOrderFormOpen, setIsOrderFormOpen] = useState(false);
 
     // Функції для керування станом відкриття форми замовлення
@@ -17,8 +17,8 @@ const Cart = () => {
     // Обробник підтвердження замовлення
     const handleOrderConfirmed = () => {
         alert("Замовлення успішно підтверджено!");
-        closeOrderForm(); // Закриває форму після підтвердження замовлення
-        clearCart(); // Очищає кошик після замовлення
+        closeOrderForm(); 
+        clearCart(); 
     };
 
     return (
@@ -51,6 +51,11 @@ const Cart = () => {
                         onClose={closeOrderForm}
                         onOrderConfirmed={handleOrderConfirmed}
                         cartItems={cartItems}
+                        clearCart={clearCart}
+                        cartId={cartId}
+                        first_name={first_name}
+                        last_name={last_name}
+                        phone_number={phone_number}
                     />
                 </div>
             )}

@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 export const useCartStore = create((set, get) => ({
   cartItems: [],
+  cartId: null,
   totalPrice: 0,
   addItemToCart: (item) => {
     const isItemExists = get().cartItems.find((product) => item.id === product.id);

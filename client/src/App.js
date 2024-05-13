@@ -39,7 +39,6 @@ const App = () => {
     const userIsLogged = parseInt(userId) > 0;
     const [infoOpen, setInfoOpen] = useState(false);
     const [addressOpen, setAddressOpen] = useState(false);
-    const [menuOpen, setMenuOpen] = useState(false);
     const [selectedPizza, setSelectedPizza] = useState(null);
     const [cartOpen, setCartOpen] = useState(false);
     const [discountOpen, setDiscountOpen] = useState(false);
@@ -82,10 +81,6 @@ const App = () => {
 
     const handleAddressClose = () => {
         setAddressOpen(false);
-    };
-
-    const handleMenuClick = () => {
-        setMenuOpen(!menuOpen);
     };
 
     useEffect(() => {
