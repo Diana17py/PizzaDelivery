@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
       type: DataTypes.INTEGER
+    },
+    created_at: {
+      allowNull: false,
+      type: DataTypes.DATE
     }
   },
   {

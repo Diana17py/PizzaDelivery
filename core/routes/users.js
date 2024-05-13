@@ -1,4 +1,5 @@
 const express = require("express");
+const { sequelize } = require('../models/index');
 const router = express.Router();
 const { User, Order, UserAddress, Cart, CartItem, Product, Invoice } = require('../models'); 
 const auth = require("../middlewares/auth");
@@ -40,7 +41,6 @@ router.post('/login', async (req, res) => {
         email: user.email,
         first_name: user.first_name,
         last_name: user.last_name,
-        delivery_type: user.delivery_type,
         phone_number: user.phone_number,
         avatar: user.avatar
       } });
@@ -181,7 +181,7 @@ router.delete('/logout',auth.checkJWT, async (req, res) => {
 
 router.get('/profile', auth.checkJWT, async (req, res) => {
   try {
-    const profile = await User.findByPk(req.decodedUserId, {attributes: ["id", "email", "first_name", "last_name", "delivery_type", "phone_number", "avatar"]});
+    const profile = await User.findByPk(req.decodedUserId, {attributes: ["id", "email", "first_name", "last_name", "phone_number", "role", "avatar"]});
     const img = fs.readFileSync(profile.avatar);
     profile.avatar = `data:image/png;base64,${Buffer.from(img).toString("base64")}`;
     res.json({profile: profile});
@@ -209,11 +209,11 @@ router.get('/dashboard', auth.checkJWT, async (req, res) => {
 
 router.put('/settings', [auth.checkJWT, upload.single('avatar')], async (req, res) => {
   try {
-    const { first_name, last_name, delivery_type, phone_number } = req.body;
+    const { first_name, last_name, role, phone_number } = req.body;
     let settings = { 
       first_name: first_name,
       last_name: last_name,
-      delivery_type: delivery_type,
+      role: role,
       phone_number: phone_number
     }
     if (req.file?.path){
@@ -229,45 +229,77 @@ router.put('/settings', [auth.checkJWT, upload.single('avatar')], async (req, re
 
 router.post('/checkout', auth.checkJWT, async (req, res) => {
   try {
-    const {cartId, totalPrice, userAddressId, address, courierId, deliveryDate, comment} = req.body;
+    const { cartId, totalPrice, userAddressId, address, courierId, deliveryDate, comment, deliveryType } = req.body;
 
-    const t = await sequelize.transaction();
-    try{
-    let realUserAddress = UserAddress.findByPk(userAddressId);
-    if (address){
-      realUserAddress = UserAddress.create({
-        "user_id": req.decodedUserId,
-        "address": `${city},${street}, ${house}, ${apartment}; entrance: ${entrance}, doorCode: ${doorCode}`
-      },
-      { transaction: t });
-    };
+    try {
+      const result = await sequelize.transaction(async (t) => {
+        let realUserAddress;
 
-    const userInvoice = Invoice.create({
-      "user_id": req.decodedUserId,
-      "status": "new",
-      "created_at": new Date().toLocaleString()
-    },
-      { transaction: t });
+        if (userAddressId !== "-1") {
+          realUserAddress = await UserAddress.findByPk(userAddressId);
+        } else if (address) {
+          realUserAddress = await UserAddress.create({
+            user_id: req.decodedUserId,
+            address: address
+          }, { transaction: t });
+        }
 
-    const newOrder = await Order.create({
-      'cart_id': cartId,
-      'user_id': req.decodedUserId,
-      'total_price': totalPrice,
-      'user_address_id': realUserAddress?.id || 0,
-      'invoice_id': userInvoice.id,
-      'courier_id': courierId,
-      'created_at': new Date().toLocaleString(),
-      'comment': `${comment}, deliverydate: ${deliveryDate}`
-    },
-      { transaction: t });
-      await t.commit();
-    }catch (error) {
-      await t.rollback();
+        const userInvoice = await Invoice.create({
+          user_id: req.decodedUserId,
+          status: 'new',
+          created_at: new Date().toISOString(), 
+        }, { transaction: t });
+
+        const newOrder = await Order.create({
+          cart_id: cartId,
+          user_id: req.decodedUserId,
+          total_price: totalPrice,
+          user_address_id: realUserAddress ? realUserAddress.id : null,
+          invoice_id: userInvoice.id,
+          courier_id: courierId,
+          created_at: new Date().toISOString(), 
+          comment: `${comment}, deliverydate: ${deliveryDate}`,
+          status: 'new',
+          delivery_type: deliveryType,
+        }, { transaction: t });
+
+        return { newOrder, userInvoice };
+      });
+
+      return res.status(201).json({ orderId: result.newOrder.id, invoiceId: result.userInvoice.id });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ error: 'Помилка обробки транзакції' });
     }
-    return res.status(201).json({orderId: newOrder.id, invoiceId: userInvoice.id});
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Помилка отримання даних з бази даних' });
+    return res.status(500).json({ error: 'Помилка отримання даних з бази даних' });
+  }
+});
+
+router.get('/couriers', auth.checkJWT, async (req, res) => {
+  try {
+    const couriers = await User.findAll({attributes: ['id', [
+      sequelize.fn('CONCAT',
+        sequelize.col('first_name'), ' ', 
+        sequelize.col('last_name'), 
+      ),
+      'full_name'
+    ]],where: { role: 'courier' } });
+    res.json(couriers);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Помилка отримання користувачів' });
+  }
+});
+
+router.get('/user_addresses', auth.checkJWT, async (req, res) => {
+  try {
+    const userAddresses = await UserAddress.findAll({attributes: ['id', 'address']});
+    res.json(userAddresses);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Помилка отримання адрес користувачів з бази даних' });
   }
 });
 

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Cart, CartItem, Product, Order } = require('../models');
+const { User, Cart, CartItem, Product, UserAddress  } = require('../models');
 
 router.get('/pizzas', async (req, res) => {
   try {
@@ -56,7 +56,9 @@ router.get('/cart/:cartId', async (req, res) => {
 
 router.post('/cart', async (req, res) => {
   try {
-    const newCart = await Cart.create();
+    const newCart = await Cart.create({
+      created_at: new Date().toISOString() 
+    });
     return res.status(201).json({id: newCart.id});
   } catch (error) {
     console.error(error);
@@ -136,6 +138,5 @@ router.put('/cart/:cartId/update', async (req, res) => {
     res.status(500).json({ error: 'Error updating cart' });
   }
 });
-
 
 module.exports = router;

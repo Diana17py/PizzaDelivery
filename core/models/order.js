@@ -33,11 +33,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING
     },
-    user_address_id: {
-      allowNull: true,
-      type: DataTypes.INTEGER
+    created_at: {
+      allowNull: false,
+      type: DataTypes.DATE
     },
-    invoice_id: {
+    user_address_id: {
       allowNull: true,
       type: DataTypes.INTEGER
     },
@@ -45,9 +45,17 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       type: DataTypes.INTEGER
     },
-    created_at: {
+    invoice_id: {
+      allowNull: true,
+      type: DataTypes.INTEGER
+    },
+    comment:{
+      allowNull: true,
+      type: DataTypes.STRING
+    },
+    delivery_type: {
       allowNull: false,
-      type: DataTypes.DATE
+      type: DataTypes.STRING
     }
   },
   {

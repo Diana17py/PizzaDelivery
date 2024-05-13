@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING
     },
+    password: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
     first_name: {
       allowNull: false,
       type: DataTypes.STRING
@@ -22,16 +26,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING
     },
-    password: {
+    role: {
       allowNull: false,
       type: DataTypes.STRING
+    },
+    created_at: {
+      allowNull: false,
+      type: DataTypes.DATE
     },
     phone_number: {
       allowNull: false,
-      type: DataTypes.STRING
-    },
-    delivery_type: {
-      allowNull: true,
       type: DataTypes.STRING
     },
     avatar: {

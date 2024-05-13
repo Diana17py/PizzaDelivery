@@ -21,6 +21,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.DECIMAL(12, 4)
     },
+    created_at: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    type: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
     image: {
       allowNull: false,
       type: DataTypes.STRING
