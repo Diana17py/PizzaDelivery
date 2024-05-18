@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { User, Cart, CartItem, Product, UserAddress  } = require('../models');
+const cart_item = require("../models/cart_item");
 
 router.get('/pizzas', async (req, res) => {
   try {
@@ -46,8 +47,26 @@ router.get('/snacks', async (req, res) => {
 router.get('/cart/:cartId', async (req, res) => {
   try {
     const { cartId } = req.params;
-    const cart = await Cart.findByPk(cartId, { include: 'cart_items' });
-    res.json(cart);
+    let cart = await Cart.findByPk(cartId, { include: {model: CartItem, as:  'cart_items', include: {model: Product, as: "product"}}});
+    const cartItems = cart.cart_items.map(function(item) {
+      let cartItem = item.get();
+      let product = item.product.get();
+      return {...{
+        quantity: cartItem.quantity,
+        name: product.name,
+        image: product.image,
+        product_id: product.id,
+        price: cartItem.price_per_item
+      }, ...{total_price: cartItem.price_per_item * cartItem.quantity}}
+    })
+
+    res.json({
+      cart: {
+        id: cart.id,
+        cart_items: cartItems,
+        total_price: cartItems.reduce(( acc, item ) => { return acc + item.total_price }, 0)
+      }
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error fetching cart information' });
@@ -97,9 +116,26 @@ router.post('/cart/:cartId/add', async (req, res) => {
       });
     }
 
-    cart = await Cart.findByPk(cartId, { include: 'cart_items' });
+    cart = await Cart.findByPk(cartId, { include: {model: CartItem, as:  'cart_items', include: {model: Product, as: "product"}}});
+    const cartItems = cart.cart_items.map(function(item) {
+      let cartItem = item.get();
+      let product = item.product.get();
+      return {...{
+        quantity: cartItem.quantity,
+        name: product.name,
+        image: product.image,
+        product_id: product.id,
+        price: cartItem.price_per_item
+      }, ...{total_price: cartItem.price_per_item * cartItem.quantity}}
+    })
 
-    res.json(cart);
+    res.json({
+      cart: {
+        id: cart.id,
+        cart_items: cartItems,
+        total_price: cartItems.reduce(( acc, item ) => { return acc + item.total_price }, 0)
+      }
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error updating cart' });
@@ -111,7 +147,7 @@ router.put('/cart/:cartId/update', async (req, res) => {
     const { cartId } = req.params;
     const { productId, quantity } = req.body;
 
-    let cart = await Cart.findByPk(cartId, { include: 'cart_items' });
+    let cart = await Cart.findByPk(cartId, { include: {model: CartItem, as:  'cart_items', include: {model: Product, as: "product"}}});
 
     if (!cart) {
       return res.status(404).json({ message: 'Cart not found' });
@@ -130,13 +166,30 @@ router.put('/cart/:cartId/update', async (req, res) => {
       await cartItem.save();
     }
 
-    cart = await Cart.findByPk(cartId, { include: 'cart_items' });
-
-    res.json(cart);
+    cart = await Cart.findByPk(cartId, { include: {model: CartItem, as:  'cart_items', include: {model: Product, as: "product"}}});
+    const cartItems = cart.cart_items.map(function(item) {
+      let cartItem = item.get();
+      let product = item.product.get();
+      return {...{
+        quantity: cartItem.quantity,
+        name: product.name,
+        image: product.image,
+        product_id: product.id,
+        price: cartItem.price_per_item
+      }, ...{total_price: cartItem.price_per_item * cartItem.quantity}}
+    })
+    res.json({
+      cart: {
+        id: cart.id,
+        cart_items: cartItems,
+        total_price: cartItems.reduce(( acc, item ) => { return acc + item.total_price }, 0)
+      }
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error updating cart' });
   }
 });
 
+//створити метод для очишчення корзини
 module.exports = router;
