@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const handleErrors = (error) => {
   console.error(error);
-  toast.error('An error occurred. Please try again.', { position: 'bottom-right' });
+  toast.error('Виникла помилка. Будь ласка спробуйте ще раз.', { position: 'bottom-right' });
 };
 
 export default function Register() {
@@ -45,7 +45,7 @@ export default function Register() {
         }
       } else {
         navigate('/login');
-        toast.success('User was successfuly registred. Try to login.', { position: 'bottom-right' });
+        toast.success('Користувач успішно зареєстрований. Спробуйте увійти.', { position: 'bottom-right' });
       }
     } catch (err) {
       handleErrors(err);

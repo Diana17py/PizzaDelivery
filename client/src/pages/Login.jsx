@@ -43,7 +43,7 @@ export default function Login() {
       }
     } catch (err) {
       console.error(err);
-      generateError('An error occurred. Please try again.');
+      generateError('Виникла помилка. Будь ласка спробуйте ще раз.');
     } finally {
       setLoading(false);
     }

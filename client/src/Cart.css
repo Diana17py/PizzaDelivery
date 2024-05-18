@@ -198,98 +198,95 @@
 
 /* Стили для заголовка */
 .order-form h3 {
-  font-size: 1.5rem; /* Розмір шрифту */
-  color: #333; /* Темно-сірий колір */
-  margin-bottom: 20px; /* Відступ від нижнього елементу */
+  font-size: 1.5rem; 
+  color: #333; 
+  margin-bottom: 20px; 
 }
 
 /* Стили для полів введення */
 .order-form form label {
-  font-size: 1.1rem; /* Розмір шрифту */
-  color: #333; /* Темно-сірий колір */
-  margin-bottom: 10px; /* Відступ між полями */
+  font-size: 1.1rem; 
+  color: #333; 
+  margin-bottom: 10px; 
 }
 
 .order-form form input,
 .order-form form textarea {
-  width: 100%; /* Ширина поля */
-  padding: 10px; /* Внутрішні відступи */
-  border-radius: 5px; /* Заокруглені кути */
-  border: 1px solid #ccc; /* Сірий колір кордону */
-  margin-bottom: 10px; /* Відступ між полями */
-  outline: none; /* Відключення виділення при фокусі */
+  width: 100%; 
+  padding: 10px; 
+  border-radius: 5px; 
+  border: 1px solid #ccc; 
+  margin-bottom: 10px; 
+  outline: none; 
 }
 
-/* Стили для кнопки */
 .order-button {
-  display: block; /* Відображення як блочний елемент */
-  width: 100%; /* Ширина 100% контейнера */
-  padding: 12px 0; /* Внутрішні відступи */
-  background-color: #e01c1c; /* Червоний фон */
-  color: #fff; /* Білий текст */
-  border-radius: 5px; /* Заокруглені кути */
-  border: none; /* Відсутність кордону */
-  cursor: pointer; /* Вказівник при наведенні */
-  font-size: 1.2rem; /* Розмір шрифту */
-  transition: background-color 0.3s ease; /* Перехідний ефект при зміні фону */
+  display: block; 
+  width: 100%; 
+  padding: 12px 0; 
+  background-color: #e01c1c; 
+  color: #fff; 
+  border-radius: 5px; 
+  border: none; 
+  cursor: pointer; 
+  font-size: 1.2rem; 
+  transition: background-color 0.3s ease; 
 }
 
-/* Стили для кнопки при наведенні */
 .order-button:hover {
-  background-color: #c90a0a; /* Темніший червоний колір */
+  background-color: #c90a0a; 
 }
 
-/* Стили для подяки після успішного замовлення */
 .thank-you-message {
-  text-align: center; /* Центрування тексту */
+  text-align: center; 
 }
 
 .thank-you-message h4 {
-  color: #333; /* Темно-сірий колір */
-  margin-bottom: 10px; /* Відступ від нижнього елементу */
+  color: #333; 
+  margin-bottom: 10px; 
 }
 
 .thank-you-message p {
-  color: #666; /* Світло-сірий колір */
+  color: #666; 
 }
-/* Стили для зображень у замовленні */
+
 .cart-item-image {
-  width: 50px; /* Ширина зображення */
-  height: 50px; /* Висота зображення */
-  border-radius: 5px; /* Заокруглені кути */
-  object-fit: cover; /* Збереження пропорцій при зміні розмірів */
-  margin-right: 10px; /* Відступ праворуч від зображення */
+  width: 50px; 
+  height: 50px; 
+  border-radius: 5px; 
+  object-fit: cover; 
+  margin-right: 10px; 
 }
 .form-divider {
   border: none;
-  height: 1px; /* Висота лінії */
-  background-color: #ddd; /* Колір лінії */
-  margin: 10px 0; /* Відступи з боків лінії */
+  height: 1px; 
+  background-color: #ddd;
+  margin: 10px 0; 
 }
 .cart-summary {
-  text-align: left; /* Вирівнювання тексту по лівому краю */
-  margin-bottom: 20px; /* Відступ знизу, за необхідності */
+  text-align: left; 
+  margin-bottom: 20px;
 }
 
 .cart-summary ul {
-  list-style-type: none; /* Видалення маркерів списку */
-  padding: 0; /* Видалення відступу зліва */
+  list-style-type: none; 
+  padding: 0; 
 }
 
 .cart-summary li {
-  display: flex; /* Використання flexbox для вирівнювання */
-  align-items: center; /* Вирівнювання елементів по вертикалі */
-  margin-bottom: 10px; /* Відступ між елементами списку */
+  display: flex; 
+  align-items: center;
+  margin-bottom: 10px; 
 }
 
 .cart-summary .cart-item-image {
-  width: 50px; /* Ширина зображення */
-  height: 50px; /* Висота зображення */
-  margin-right: 10px; /* Відступ справа від зображення */
+  width: 50px; 
+  height: 50px; 
+  margin-right: 10px; 
 }
 
 .cart-summary span {
-  flex-grow: 1; /* Збільшує розмір span для заповнення простору */
+  flex-grow: 1; 
 }
 
 /* CSS для випадаючого списку */
@@ -299,7 +296,7 @@ select {
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
-  margin-bottom: 15px; /* Додайте відступ між випадаючим списком і наступним елементом */
+  margin-bottom: 15px; 
 }
 
 /* CSS для опцій у випадаючому списку */
@@ -308,12 +305,4 @@ option {
   font-size: 16px;
   display: flex;
   align-items: center;
-}
-
-/* CSS для зображення у випадаючому списку */
-option img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 10px;
 }

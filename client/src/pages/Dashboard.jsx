@@ -55,7 +55,7 @@ const Dashboard = () => {
             </div>
             <div className="order-info-block">
               <div className="info-label">Всього:</div>
-              <div className="info-value">UAN{Number(total).toFixed(2)}</div>
+              <div className="info-value">{Number(total).toFixed(2)} UAN</div>
             </div>
           </div>
         </>

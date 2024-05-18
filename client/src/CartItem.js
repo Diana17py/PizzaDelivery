@@ -1,21 +1,19 @@
 import React from "react";
-import { useCartStore } from "./store/cart.store";
 
-const CartItem = ({ name, price, image, quantity, id }) => {
-  const { incrementItemCount, decrementItemCount, getCurrentItem } = useCartStore();
-  const item = getCurrentItem(id);
+const CartItem = ({ name, price, image, quantity, product_id, total_price, updateCartItem }) => {
 
   return (
     <li className="product-row">
       <img src={image} alt={name} className="product-image" />
       <div className="product-text">
-        {name} - {price} UAN - Кількість: {item.quantity}
+        {name} - {price} UAN - Кількість: {quantity}
       </div>
       <div className="product-buttons">
-        <button onClick={() => incrementItemCount(item.id)}>+</button>
-        <button onClick={() => decrementItemCount(item.id)}>-</button>
+        <button onClick={() => updateCartItem({id: product_id, quantity: parseInt(quantity)+1})}>+</button>
+        <button onClick={() => updateCartItem({id: product_id, quantity: parseInt(quantity)-1})}>-</button>
       </div>
-      <div className="total-price">Загальна вартість: ${item.totalPrice.toFixed(2)}</div>
+      <div className="total-price">Загальна вартість: ${total_price.toFixed(2)}</div>
+      
     </li>
   );
 };

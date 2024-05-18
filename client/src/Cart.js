@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CartItem from "./CartItem";
 import OrderForm from "./OrderForm";
-import { useCartStore } from "./store/cart.store"; 
 import { Link } from 'react-router-dom';
+import { CartContext } from "./providers/Cart";
+
 
 
 const Cart = () => {
-    // Отримуємо стан кошика за допомогою useCartStore
-    const { totalPrice, cartItems, clearCart, cartId, first_name, last_name, phone_number } = useCartStore();
+    const {clearCart, cart, updateCartItem } = useContext(CartContext);
     const [isOrderFormOpen, setIsOrderFormOpen] = useState(false);
-
     // Функції для керування станом відкриття форми замовлення
     //const openOrderForm = () => setIsOrderFormOpen(true);
     const closeOrderForm = () => setIsOrderFormOpen(false);
@@ -21,15 +20,21 @@ const Cart = () => {
         clearCart(); 
     };
 
+    if (!cart){
+      return (<span>loading...</span>)
+    }
+
     return (
         <div className="cart">
             <h2 className="cart-title">Ваша корзина</h2>
             <ul className="cart-items">
-                {cartItems.length > 0 ? (
-                    cartItems.map((item) => (
+              
+                {cart.cart_items.length > 0 ? (
+                    cart.cart_items.map((item) => (
                         <CartItem
-                            key={item.id}
+                            key={item.product_id}
                             {...item}
+                            updateCartItem={updateCartItem}
                         />
                     ))
                 ) : (
@@ -37,12 +42,7 @@ const Cart = () => {
                 )}
             </ul>
             <div className="cart-summary">
-                <p className="cart-total">Загальна вартість: ${totalPrice.toFixed(2)}</p>
-                {cartItems.length > 0 && (
-                    <button className="clear-cart-button" onClick={clearCart}>
-                        Очистити корзину
-                    </button>
-                )}
+                <p className="cart-total">Загальна вартість: ${cart.total_price.toFixed(2)}</p>
                 <Link to="/order" className="order-link">Оформити замовлення</Link>
             </div>
             {isOrderFormOpen && (
@@ -50,12 +50,9 @@ const Cart = () => {
                     <OrderForm
                         onClose={closeOrderForm}
                         onOrderConfirmed={handleOrderConfirmed}
-                        cartItems={cartItems}
+                        cartItems={cart.cart_items}
                         clearCart={clearCart}
-                        cartId={cartId}
-                        first_name={first_name}
-                        last_name={last_name}
-                        phone_number={phone_number}
+                        cartId={cart.id}
                     />
                 </div>
             )}

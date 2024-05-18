@@ -1,9 +1,11 @@
-import React, { useState, useEffect} from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useContext} from 'react';
 import './Cart.css';
 import liqpayClient from './payments/liqpayClient';
-  
-const OrderForm = ({ cartItems, clearCart }) => {
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { CartContext } from "./providers/Cart";
+
+const OrderForm = () => {
   const [couriers, setCouriers] = useState([]);
   const [selectedCourier, setSelectedCourier] = useState('');
   const [userAddresses, setUserAddresses] = useState([]);
@@ -18,9 +20,15 @@ const OrderForm = ({ cartItems, clearCart }) => {
   const [doorCode, setDoorCode] = useState('');
   const [paymentOption, setPaymentOption] = useState('cash');
   const [comment, setComment] = useState('');
-  const [orderConfirmed, setOrderConfirmed] = useState(false);
+  const [orderSuccessData, setOrderSuccessData] = useState({});
+  const {clearCart, cart} = useContext(CartContext);
 
-  const totalAmount = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
+  const totalAmount = cart.cart_items.reduce((acc, item) => acc + item.quantity * item.price, 0);
+  
+  const handleErrors = (error) => {
+    console.error(error);
+    toast.error('Виникла помилка. Будь ласка спробуйте ще раз.', { position: 'bottom-right' });
+  };
 
   useEffect(() => {
     const fetchCouriers = async () => {
@@ -60,7 +68,7 @@ const OrderForm = ({ cartItems, clearCart }) => {
     event.preventDefault();
 
     const orderData = {
-      cartId: sessionStorage.getItem('cartId'),
+      cartId: cart.id,
       totalPrice: totalAmount,
       userAddressId: selectedAddress,
       courierId: selectedCourier, 
@@ -83,11 +91,11 @@ const OrderForm = ({ cartItems, clearCart }) => {
         },
       });
 
-      if (response.status === 200) {
-        const data = response.json();
+      if (response.status >= 200 && response.status < 300 ) {
+        const newOrderData = await response.json();
         if (paymentOption === 'card') {
           try {
-            const description = cartItems.map((item) => (
+            const description = cart.cart_items.map((item) => (
               `${item.name} - ${item.quantity} шт. - ${item.price * item.quantity} грн; ` 
             ));
             const paymentParams = {
@@ -96,20 +104,23 @@ const OrderForm = ({ cartItems, clearCart }) => {
               amount: totalAmount,
               currency: 'UAH',
               description: description.join(' '),
-              order_id: data.orderId
+              order_id: newOrderData.orderId
             };
             const paymentResponse = await liqpayClient.api('request', paymentParams);
             console.log(paymentResponse); 
           } catch (error) {
             console.error('Помилка під час ініціювання платежу:', error.message);
+            handleErrors(error);
           }
         } 
-        clearCart(); 
+        clearCart();
+        setOrderSuccessData(newOrderData);
       } else {
         console.error('Помилка під час оформлення замовлення:', response.statusText);
       }
     } catch (error) {
       console.error('Помилка під час оформлення замовлення:', error.message);
+      handleErrors(error);
     }
   };
   
@@ -120,17 +131,14 @@ const OrderForm = ({ cartItems, clearCart }) => {
         <h2>PIZZA PLACE</h2>
         <h3>Оформлення замовлення</h3>
 
-        {orderConfirmed ? (
-          <div className="thank-you-message">
-            <h4>Дякуємо за ваше замовлення!</h4>
-            <p>Ваше замовлення буде доставлено або готове для самовивозу в обраний час.</p>
-          </div>
+        {Object.keys(orderSuccessData).length > 0 ? (
+          <p>Ваше замовлення №{orderSuccessData.orderId} успішно оформлено!</p>
         ) : (
           <>
             <div className="cart-summary">
               <h4>Ваше замовлення:</h4>
               <ul>
-                {cartItems.map((item) => (
+                {cart.cart_items.map((item) => (
                   <li key={item.id}>
                     <img src={item.image} alt={item.name} className="cart-item-image" />
                     <span>{item.name} - {item.quantity} шт. - {item.price * item.quantity} UAN</span>
