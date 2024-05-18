@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState({id: null, cart_items:[], total_price: 0 });
+  const [cart, setCart] = useState({id: sessionStorage.getItem("cartId"), cart_items:[], total_price: 0 });
   useEffect(() => {
     const fetchCart = async () => {
       try {
